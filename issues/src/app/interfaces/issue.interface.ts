@@ -4,6 +4,7 @@ export interface IssueInterface {
     content?: string;
     type: IssueType;
     priority: IssuePriority;
+    opened: boolean;
 }
 
 export enum IssueType {

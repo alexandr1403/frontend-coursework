@@ -1,12 +1,38 @@
 <div class="issue-list">
     <h1>Ишшус!</h1> 
 
-    <app-add-form (itemAdd)="addIssue($event)"></app-add-form>
+    <app-add-form (itemAdd)="addIssue($event)"></app-add-form> 
 
     <div class="issues-list" >
-        <h2>Всего задач: {{issues.length}} </h2> 
-        @for(issue of issues; track $index) {
-            <app-issue-item [issue]="issue"></app-issue-item> 
+         <button (click)="showOpened()" class="issue-btn"> 
+            Открытые задачи 
+        </button>
+        <button (click)="showClosed()" class="issue-btn"> 
+            Закрытые задачи 
+        </button>
+
+        <h2>Всего задач: {{(issues.length + closed.length)}} </h2> 
+        @if(isOpened) {
+            @for(issue of issues; track $index) {
+                <app-issue-item [issue]="issue" (close)="closeIssue($event)"></app-issue-item> 
+            }
+
+            @if(issues.length === 0) {
+                <h3 class="empty-res">
+                    Пока нет открытых задач 
+                </h3>
+            }
+        }
+        @else {
+            @for(item of closed; track $index) {
+                <app-issue-item [issue]="item"></app-issue-item> 
+            }
+
+            @if(closed.length === 0) {
+                <h3 class="empty-res">
+                    Пока нет закрытых задач 
+                </h3>
+            }
         }
     </div>
 

@@ -14,10 +14,13 @@ import { IssueItem } from "../issue-item-component/issue-item.component";
 
 export class IssueList {
     issues: IssueInterface[] = [];
+    closed: IssueInterface[] = [];
+    isOpened: boolean = true;
 
     addIssue(newIssue: { title: string, content?: string, type: IssueType, priority: IssuePriority }): void {
         const adding: Omit<IssueInterface, 'id'> = {
-            ...newIssue
+            ...newIssue,
+            opened: true
         }
 
         this.issues.push({
@@ -26,5 +29,22 @@ export class IssueList {
         });
 
         console.log(this.issues);
+    }
+
+    closeIssue(id: number): void {
+        const item = this.issues.find(item => item.id === id)
+        if (item)
+            this.closed.push(item);
+
+        this.issues = this.issues.filter(item => item.id !== id);
+    }
+
+    showClosed(): void {
+        this.isOpened = false;
+        // this.closed = this.issues.filter(item => item.opened == false);
+    }
+
+    showOpened(): void {
+        this.isOpened = true;
     }
 }
