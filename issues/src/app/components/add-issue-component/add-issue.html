@@ -1,0 +1,29 @@
+<div class="add-form">
+    <input *ngIf="isVisibleAdding" [(ngModel)]="title" type="text" placeholder="Название задачи" class="form-input">
+    <input *ngIf="isVisibleAdding" [(ngModel)]="content" type="text" placeholder="Что нужно сделать? " class="form-input"> 
+
+    <h4 *ngIf="isVisibleAdding" class="txt-form">Тип задачи: </h4> <select *ngIf="isVisibleAdding" [(ngModel)]="type" name="type" class="select-form"> 
+        @if(isVisibleAdding) {
+            @for (type of types; track type) {
+                <option [value]="type">{{type}}</option>
+            }
+        }
+    </select>
+
+    <h4 *ngIf="isVisibleAdding" class="txt-form">Приоритет: </h4> <select *ngIf="isVisibleAdding" [(ngModel)]="priority" name="priority" class="select-form">
+        @if(isVisibleAdding) {
+            @for (priority of priorities; track priority) {
+                <option [value]="priority">{{priority}}</option>
+            }
+        }
+    </select>
+    
+    <button *ngIf="!isVisibleAdding" (click)="startAdding()" class="add-btn">
+        Новая задача 
+    </button>
+
+     <button *ngIf="isVisibleAdding" (click)="addIssue()" class="add-btn">
+        Добавить 
+    </button>
+    
+</div>

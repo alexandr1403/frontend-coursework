@@ -1,5 +1,7 @@
 export interface IssueInterface {
-    content: string;
+    id: number;
+    title: string;
+    content?: string;
     type: IssueType;
     priority: IssuePriority;
 }
