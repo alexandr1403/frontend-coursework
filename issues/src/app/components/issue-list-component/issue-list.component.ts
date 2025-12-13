@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { IssueInterface } from "../../interfaces/issue.interface";
 
 @Component({
     selector: 'app-issue-list',
@@ -9,5 +10,6 @@ import { Component } from "@angular/core";
 })
 
 export class IssueList {
-
+    issues: IssueInterface[] = [];
+    
 }
