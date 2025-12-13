@@ -22,8 +22,12 @@
         Новая задача 
     </button>
 
-     <button *ngIf="isVisibleAdding" (click)="addIssue()" class="add-btn">
+    <button *ngIf="isVisibleAdding" (click)="addIssue()" class="add-btn">
         Добавить 
     </button>
-    
+
+    <button *ngIf="isVisibleAdding" (click)="cancelAdding()" class="add-btn">
+        Отменить 
+    </button>
+
 </div>

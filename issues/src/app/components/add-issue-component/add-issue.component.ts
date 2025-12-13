@@ -46,4 +46,13 @@ export class AddIssue {
 
         this.isVisibleAdding = false;
     }
+
+    cancelAdding(): void {
+        this.isVisibleAdding = false;
+
+        this.title = '';
+        this.content = '';
+        this.type = IssueType.BUG;
+        this.priority = IssuePriority.MEDIUM;
+    }
 }
