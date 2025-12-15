@@ -1,3 +1,5 @@
+import { UserInterface } from "./user.interface";
+
 export interface IssueInterface {
     id: number;
     title: string;
@@ -5,16 +7,18 @@ export interface IssueInterface {
     type: IssueType;
     priority: IssuePriority;
     opened: boolean;
+    assigner: UserInterface;
 }
 
 export enum IssueType {
     BUG = "bug",
-    FEATURE = 'feature',
+    FEATURE = "feature",
     DOC = "documentation"
 }
 
 export enum IssuePriority {
     LOW = "low",
     MEDIUM = "medium",
-    HIGH = "high"
+    HIGH = "high",
+    CRITICAL = "Срочно!"
 }

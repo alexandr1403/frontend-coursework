@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from "@angular/core";
 import { IssuePriority, IssueType } from "../../interfaces/issue.interface";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { UserInterface } from "../../interfaces/user.interface";
 
 @Component({
     selector: 'app-add-form',
@@ -12,7 +13,7 @@ import { CommonModule } from "@angular/common";
 })
 
 export class AddIssue {
-    @Output() itemAdd = new EventEmitter<{ title: string, content?: string, type: IssueType, priority: IssuePriority }>();
+    @Output() itemAdd = new EventEmitter<{ title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }>();
 
     isVisibleAdding: boolean = false;
 
@@ -20,6 +21,7 @@ export class AddIssue {
     content?: string = '';
     type: IssueType = IssueType.BUG;
     priority: IssuePriority = IssuePriority.MEDIUM;
+    assigner: UserInterface = { };
 
     types = Object.values(IssueType);
     priorities = Object.values(IssuePriority);
@@ -37,12 +39,14 @@ export class AddIssue {
             content: this.content?.trim() || '',
             type: this.type,
             priority: this.priority,
+            assigner: this.assigner,
         })
 
         this.title = '';
         this.content = '';
         this.type = IssueType.BUG;
         this.priority = IssuePriority.MEDIUM;
+        this.assigner = { };
 
         this.isVisibleAdding = false;
     }
@@ -54,5 +58,6 @@ export class AddIssue {
         this.content = '';
         this.type = IssueType.BUG;
         this.priority = IssuePriority.MEDIUM;
+        this.assigner = { };
     }
 }

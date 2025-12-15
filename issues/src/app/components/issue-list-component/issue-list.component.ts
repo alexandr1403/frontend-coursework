@@ -3,6 +3,7 @@ import { IssueInterface, IssuePriority, IssueType } from "../../interfaces/issue
 import { AddIssue } from "../add-issue-component/add-issue.component";
 import { CommonModule } from "@angular/common";
 import { IssueItem } from "../issue-item-component/issue-item.component";
+import { UserInterface } from "../../interfaces/user.interface";
 
 @Component({
     selector: 'app-issue-list',
@@ -17,7 +18,7 @@ export class IssueList {
     closed: IssueInterface[] = [];
     isOpened: boolean = true;
 
-    addIssue(newIssue: { title: string, content?: string, type: IssueType, priority: IssuePriority }): void {
+    addIssue(newIssue: { title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
         const adding: Omit<IssueInterface, 'id'> = {
             ...newIssue,
             opened: true
