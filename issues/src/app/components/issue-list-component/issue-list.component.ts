@@ -16,7 +16,7 @@ import { UserInterface } from "../../interfaces/user.interface";
 export class IssueList {
     issues: IssueInterface[] = [];
     closed: IssueInterface[] = [];
-    isOpened: boolean = true;
+    isOpened: boolean = true; // выводим открытые? (по умолчанию - да) 
 
     addIssue(newIssue: { title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
         const adding: Omit<IssueInterface, 'id'> = {
