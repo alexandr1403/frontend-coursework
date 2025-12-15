@@ -13,6 +13,9 @@ import { CommonModule } from "@angular/common";
 })
 
 export class User {
+    /**
+     * Событие reg информирует компонент задач о входе пользователя в систему. 
+     */
     @Output() reg = new EventEmitter<{ id: number, name: string, password: string }>();
 
     constructor(private service: UserService) { };
@@ -25,7 +28,7 @@ export class User {
         this.user.id = Date.now();
         this.service.registerUser(this.user);
         this.isStartLogging = false;
-        
+
         this.reg.emit({ 
             id: this.user.id, 
             name: this.user.name, 
@@ -49,6 +52,12 @@ export class User {
             this.user.id = id;
         
         this.isStartLogging = false;
+
+        this.reg.emit({ 
+            id: this.user.id, 
+            name: this.user.name, 
+            password: this.user.password 
+        });
     }
 
     startLog(): void {

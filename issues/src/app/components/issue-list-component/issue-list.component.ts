@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { IssueInterface, IssuePriority, IssueType } from "../../interfaces/issue.interface";
 import { AddIssue } from "../add-issue-component/add-issue.component";
 import { CommonModule } from "@angular/common";

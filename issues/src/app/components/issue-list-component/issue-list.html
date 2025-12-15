@@ -14,6 +14,7 @@
         <h2>Всего задач: {{(issues.length + closed.length)}} </h2> 
         @if(isOpened) {
             @for(issue of issues; track $index) {
+                <!-- Задачу можно закрыть и назначить на себя.  -->
                 <app-issue-item [issue]="issue" (close)="closeIssue($event)" (assign)="assignYourself($event)"></app-issue-item> 
             }
 
@@ -36,6 +37,8 @@
         }
     </div>
 
+    <!-- Передаём в event данные для инициализации пользователя, 
+     который работает сейчас в программе. --> 
     <app-user (reg)="initUser($event)"></app-user> 
 
 </div>

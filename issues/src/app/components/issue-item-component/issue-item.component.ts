@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { IssueInterface } from "../../interfaces/issue.interface";
 import { MatCardModule } from "@angular/material/card";
-import { UserInterface } from "../../interfaces/user.interface";
 
 @Component({
     selector: 'app-issue-item',
