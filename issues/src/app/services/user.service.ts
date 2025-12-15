@@ -13,38 +13,40 @@ export class UserService {
         return key;
     }
 
-    saveUser(key: string, value: string): void {
-        localStorage.setItem(key, value);
+    saveUser(key: string, user: UserInterface): void {
+        localStorage.setItem(key, JSON.stringify(user));
     }
 
-    getUserPassword(key: string): string | null{
+    getUser(key: string): UserInterface | null{
         const user = localStorage.getItem(key);
-        if (user) 
-            return user;
+        if (user) {
+            let res: UserInterface = JSON.parse(user);
+            return res;
+        }
 
         return null;
     }
 
     registerUser(user: UserInterface): void {
         const key = this.getKey(user.id, user.name);
-        const pwd = this.getUserPassword(key);
+        const pwd = this.getUser(key)?.password;
         if (pwd == null)
-            this.saveUser(key, user.password);
+            this.saveUser(key, user);
         else 
             console.log("Вы уже зарегестрированы.");
     }
 
-    logIn(user: UserInterface): boolean {
+    logIn(user: UserInterface): number {
         const key = this.getKey(user.id, user.name);
-        const pwd = this.getUserPassword(key);
+        const pwd = this.getUser(key)?.password;
         if (pwd == null) {
             console.log("Зарегистрируйтесь.");
-            return false
+            return -1;
         }
         else if (user.password === pwd)
-            return true;
+            return user.id;
 
         console.log("Неверный пароль.");
-        return false;
+        return -1;
     }
 }
