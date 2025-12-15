@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { UserInterface } from "../../interfaces/user.interface";
 import { UserService } from "../../services/user.service";
 import { FormsModule } from "@angular/forms";
@@ -13,6 +13,7 @@ import { CommonModule } from "@angular/common";
 })
 
 export class User {
+    @Output() reg = new EventEmitter<{ id: number, name: string, password: string }>();
 
     constructor(private service: UserService) { };
     user: UserInterface = { id: 0, name: '', password: '' };
@@ -24,6 +25,12 @@ export class User {
         this.user.id = Date.now();
         this.service.registerUser(this.user);
         this.isStartLogging = false;
+        
+        this.reg.emit({ 
+            id: this.user.id, 
+            name: this.user.name, 
+            password: this.user.password 
+        });
     }
 
     logIn(): void {
@@ -63,5 +70,6 @@ export class User {
      */
     cleaner(): void {
         this.service.cleaner();
+        console.log("Хранилище очищено. ");
     }
 }
