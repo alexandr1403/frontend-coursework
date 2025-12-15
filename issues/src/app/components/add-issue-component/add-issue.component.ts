@@ -13,7 +13,9 @@ import { UserInterface } from "../../interfaces/user.interface";
 })
 
 export class AddIssue {
-    @Output() itemAdd = new EventEmitter<{ title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }>();
+    @Output() itemAdd = new EventEmitter<{ 
+        title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface 
+    }>();
 
     isVisibleAdding: boolean = false;
 
@@ -21,7 +23,7 @@ export class AddIssue {
     content?: string = '';
     type: IssueType = IssueType.BUG;
     priority: IssuePriority = IssuePriority.MEDIUM;
-    assigner: UserInterface = { };
+    assigner: UserInterface = { id: 0, name: '', password: '' };
 
     types = Object.values(IssueType);
     priorities = Object.values(IssuePriority);
@@ -46,7 +48,7 @@ export class AddIssue {
         this.content = '';
         this.type = IssueType.BUG;
         this.priority = IssuePriority.MEDIUM;
-        this.assigner = { };
+        this.assigner = { id: 0, name: '', password: '' };
 
         this.isVisibleAdding = false;
     }
@@ -58,6 +60,6 @@ export class AddIssue {
         this.content = '';
         this.type = IssueType.BUG;
         this.priority = IssuePriority.MEDIUM;
-        this.assigner = { };
+        this.assigner = { id: 0, name: '', password: '' };
     }
 }
