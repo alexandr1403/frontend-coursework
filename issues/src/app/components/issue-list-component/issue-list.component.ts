@@ -4,11 +4,12 @@ import { AddIssue } from "../add-issue-component/add-issue.component";
 import { CommonModule } from "@angular/common";
 import { IssueItem } from "../issue-item-component/issue-item.component";
 import { UserInterface } from "../../interfaces/user.interface";
+import { User } from "../user-item-component/user-item.component";
 
 @Component({
     selector: 'app-issue-list',
     standalone: true,
-    imports: [AddIssue, CommonModule, IssueItem],
+    imports: [AddIssue, CommonModule, IssueItem, User],
     templateUrl: 'issue-list.html',
     styleUrls: ['issue-list.scss']
 })

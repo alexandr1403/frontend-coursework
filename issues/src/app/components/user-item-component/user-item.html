@@ -1,5 +1,29 @@
 <div class="user">
-    <input [(ngModel)]="user.name" type="text" placeholder="Ваше имя " class="">
-    <input [(ngModel)]="user.password" type="text" placeholder="Введите пароль" class="">
-    
+    <button *ngIf="!isStartLogging" (click)="startLog()" class=""> 
+        Войти
+    </button>
+
+    <button *ngIf="!isStartLogging" (click)="startReg()" class=""> 
+        Зарегистрироваться 
+    </button>
+
+    <input *ngIf="isStartLogging" [(ngModel)]="user.name" type="text" placeholder="Ваше имя " class="">
+    <input *ngIf="isStartLogging" [(ngModel)]="user.password" type="text" placeholder="Введите пароль" class="">
+
+    <button *ngIf="isStartLogging && isRegister" (click)="register()" class=""> 
+        Отправить 
+    </button>
+
+    <button *ngIf="isStartLogging && !isRegister" (click)="logIn()" class=""> 
+        Отправить 
+    </button>
+
+    <button *ngIf="isStartLogging" (click)="cancel()" class=""> 
+        Отменить 
+    </button>
+
+    <button (click)="cleaner()" style="margin-left: 30px;"> 
+        Очистка бардака в хранилище 
+    </button>
+
 </div>
