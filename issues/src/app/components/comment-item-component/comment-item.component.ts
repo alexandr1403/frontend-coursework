@@ -33,7 +33,8 @@ export class CommentComponent implements OnInit {
     commentIssue(): void {
         const time = new Date().toISOString();
         if (this.comment !== '') {
-            this.service.saveHistory(this.data.issue.id, time, this.data.issue.assigner.name, this.comment);
+            // косяк - комментарий оставляет не обязательно assigner. 
+            this.service.saveHistory(this.data.issue.id, time, this.data.issue.assigner.name, this.comment); 
             console.log("Комментарий оставлен: ", this.comment);
             this.updateHistory();
         }
