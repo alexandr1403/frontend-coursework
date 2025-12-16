@@ -3,11 +3,12 @@ import { IssueInterface } from "../../interfaces/issue.interface";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
 import { CommentList } from "../comment-list-component/comment-list.component";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: 'app-issue-item',
     standalone: true,
-    imports: [MatCardModule],
+    imports: [MatCardModule, CommonModule],
     templateUrl: './issue-item.html',
     styleUrls: ['./issue-item.scss']
 })

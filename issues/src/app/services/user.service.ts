@@ -16,7 +16,8 @@ export class UserService {
     }
 
     setKey(id: number, name: string): string {
-        const key = id.toString() + '|' + name;
+        // const key = id.toString() + '|' + name;
+        const key = name;
         return key;
     }
 

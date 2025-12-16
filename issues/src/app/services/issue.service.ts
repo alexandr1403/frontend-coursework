@@ -46,6 +46,7 @@ export class IssueService {
         const item = issues.find(item => item.id === id);
 
         if (item) {
+            item.opened = false;
             closed.push(item);
             this.setClosed(closed);
         }
