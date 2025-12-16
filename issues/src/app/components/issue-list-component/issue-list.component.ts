@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { IssueInterface, IssuePriority, IssueType } from "../../interfaces/issue.interface";
 import { AddIssue } from "../add-issue-component/add-issue.component";
 import { CommonModule } from "@angular/common";
@@ -7,22 +7,99 @@ import { UserInterface } from "../../interfaces/user.interface";
 import { User } from "../user-item-component/user-item.component";
 import { IssueService } from "../../services/issue.service";
 import { UserService } from "../../services/user.service";
+import { FormsModule } from "@angular/forms";
+import { concat, Observable, of, Subscription } from "rxjs";
 
 @Component({
     selector: 'app-issue-list',
     standalone: true,
-    imports: [AddIssue, CommonModule, IssueItem, User],
+    imports: [AddIssue, CommonModule, IssueItem, User, FormsModule],
     templateUrl: './issue-list.html',
     styleUrls: ['./issue-list.scss']
 })
 
-export class IssueList implements OnInit {
+export class IssueList implements OnInit, OnDestroy {
 
     constructor(private service: IssueService, private userService: UserService) { };
 
     issues: IssueInterface[] = [];
     closed: IssueInterface[] = [];
     isOpened: boolean = true; // выводим открытые? (по умолчанию - да) 
+
+    filterTag: IssueType | null = null;
+    filterPriority: IssuePriority | null = null;
+
+    filteredIssues: IssueInterface[] = [];
+
+    tags = Object.values(IssueType);
+    priors = Object.values(IssuePriority);
+    subs: Subscription = new Subscription();
+
+    Changes(): Observable<any> {
+        if (this.tags !== null) {
+            return of (this.filterTag);
+        }
+        if (this.priors !== null) {
+            return of (this.filterPriority);
+        }
+        return of (null);
+    }
+
+    doFilter(): void {
+        this.subs = this.Changes().subscribe(() => {
+            this.applyFilters();
+            console.log("Фильтры сработали? ");
+            console.log(this.filteredIssues);
+        })
+    }
+
+    filterByTag(filter: IssueType): void {
+        switch(filter) {
+            case IssueType.BUG: {
+                this.filteredIssues = this.filteredIssues.filter(item => item.type === IssueType.BUG);
+                break;
+            }
+            case IssueType.FEATURE: {
+                this.filteredIssues = this.filteredIssues.filter(item => item.type === IssueType.FEATURE);
+                break;
+            }
+            case IssueType.DOC: {
+                this.filteredIssues = this.filteredIssues.filter(item => item.type === IssueType.DOC);
+                break;
+            }
+        }
+    }
+
+    filterByPriority(filter: IssuePriority): void {
+        switch(filter) {
+            case IssuePriority.CRITICAL: {
+                this.filteredIssues = this.filteredIssues.filter(item => item.priority === IssuePriority.CRITICAL);
+                break;
+            }
+            case IssuePriority.HIGH: {
+                this.filteredIssues = this.filteredIssues.filter(item => item.priority === IssuePriority.HIGH);
+                break;
+            }
+            case IssuePriority.LOW: {
+                this.filteredIssues = this.filteredIssues.filter(item => item.priority === IssuePriority.LOW);
+                break;
+            }
+            case IssuePriority.MEDIUM: {
+                this.filteredIssues = this.filteredIssues.filter(item => item.priority === IssuePriority.MEDIUM);
+                break;
+            }
+        }
+    }
+
+    applyFilters(): void {
+        // this.Changes().subscribe(next: {
+        //     this.applyFilters();
+        // });
+        if (this.filterTag !== null)
+            this.filterByTag(this.filterTag);
+        if (this.filterPriority !== null)
+            this.filterByPriority(this.filterPriority);
+    }
 
     addIssue(newIssue: { title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
         const adding: Omit<IssueInterface, 'id'> = {
@@ -57,9 +134,14 @@ export class IssueList implements OnInit {
     updateIssues(): void {
         this.issues = this.service.getIssues();
         this.closed = this.service.getClosed();
+        this.filteredIssues = this.issues; // сейчас фильтровать можно только открытые задачи. 
     }
 
     ngOnInit(): void {
         this.updateIssues();
+    }
+
+    ngOnDestroy(): void {
+        this.subs.unsubscribe();
     }
 }

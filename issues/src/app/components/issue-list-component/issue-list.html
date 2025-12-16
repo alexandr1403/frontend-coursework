@@ -11,6 +11,23 @@
             Закрытые задачи 
         </button>
 
+        <h3 style="margin-top: 20px;">Фильтры: </h3>
+        <select [(ngModel)]="filterTag" name="type" class="select-form"> 
+            @for (type of tags; track type) {
+                <option [value]="type">{{type}}</option>
+            }
+        </select>
+
+        <select [(ngModel)]="filterPriority" name="type" class="select-form"> 
+            @for (type of priors; track type) {
+                <option [value]="type">{{type}}</option>
+            }
+        </select>
+
+        <button (click)="doFilter()">
+            Фильтр 
+        </button>
+
         <h2>Всего задач: {{(issues.length + closed.length)}} </h2> 
         @if(isOpened) {
             @for(issue of issues; track $index) {
