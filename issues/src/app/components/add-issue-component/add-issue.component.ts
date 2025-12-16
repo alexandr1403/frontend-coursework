@@ -36,32 +36,36 @@ export class AddIssue {
     }
 
     addIssue(): void {
-        if (!this.title.trim())
-            return;
+        try {
+            if (!this.title.trim())
+                return;
 
-        if (!this.service.currentUser.name.trim()) {
-            console.log("Войдие в систему. Нельзя создавать задачу неавторизованным. ");
+            if (!this.service.currentUser.name.trim()) {
+                console.log("Войдие в систему. Нельзя создавать задачу неавторизованным. ");
+                this.isVisibleAdding = false;
+                return;
+            }
+
+            console.log(this.service.currentUser.name);
+            this.itemAdd.emit({
+                creator: this.service.currentUser,
+                title: this.title.trim(),
+                content: this.content?.trim() || '',
+                type: this.type,
+                priority: this.priority,
+                assigner: this.assigner,
+            })
+            
             this.isVisibleAdding = false;
-            return;
         }
 
-        console.log(this.service.currentUser.name);
-        this.itemAdd.emit({
-            creator: this.service.currentUser,
-            title: this.title.trim(),
-            content: this.content?.trim() || '',
-            type: this.type,
-            priority: this.priority,
-            assigner: this.assigner,
-        })
-
-        this.title = '';
-        this.content = '';
-        this.type = IssueType.BUG;
-        this.priority = IssuePriority.MEDIUM;
-        this.assigner = { id: 0, name: '', password: '' };
-
-        this.isVisibleAdding = false;
+        finally {
+            this.title = '';
+            this.content = '';
+            this.type = IssueType.BUG;
+            this.priority = IssuePriority.MEDIUM;
+            this.assigner = { id: 0, name: '', password: '' };
+        }
     }
 
     cancelAdding(): void {

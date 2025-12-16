@@ -49,14 +49,15 @@ export class UserService {
     logIn(user: UserInterface): number {
         const key = this.setKey(user.id, user.name);
         const pwd = this.getUser(key)?.password;
+        const id = this.getUser(key)?.id;
+        
         if (pwd == null) {
             console.log("Зарегистрируйтесь.");
             return -1;
         }
         else if (user.password === pwd) {
             console.log("Успешный вход! ");
-            // return user.id;
-            return 5;
+            return id? id : 0;
         }
 
         console.log("Неверный пароль.");
