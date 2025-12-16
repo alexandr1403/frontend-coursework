@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { IssueInterface } from "../interfaces/issue.interface";
-import { literalMap } from "@angular/compiler";
 import { UserInterface } from "../interfaces/user.interface";
 
 @Injectable({
@@ -46,6 +45,7 @@ export class IssueService {
         const item = issues.find(item => item.id === id);
 
         if (item) {
+            item.opened = false;
             closed.push(item);
             this.setClosed(closed);
         }

@@ -7,8 +7,17 @@ import { UserInterface } from "../interfaces/user.interface";
 
 export class UserService {
 
+    currentUser: UserInterface = { id: 0, name: '', password: '' };
+
+    currentUserInit(user: UserInterface): void {
+        this.currentUser.id = user.id;
+        this.currentUser.name = user.name;
+        this.currentUser.password = user.password;
+    }
+
     setKey(id: number, name: string): string {
-        const key = id.toString() + '|' + name;
+        // const key = id.toString() + '|' + name;
+        const key = name;
         return key;
     }
 
@@ -34,7 +43,7 @@ export class UserService {
             console.log("Успешная регистрация! ");
         }
         else 
-            console.log("Вы уже зарегестрированы."); // похоже, else тут невозможен. 
+            console.log("Вы уже зарегестрированы.");
     }
 
     logIn(user: UserInterface): number {

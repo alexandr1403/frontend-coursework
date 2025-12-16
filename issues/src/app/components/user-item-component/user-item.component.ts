@@ -29,6 +29,7 @@ export class User {
         if (this.user.name.trim() && this.user.password.trim()) {
             this.service.registerUser(this.user);
 
+            this.service.currentUserInit(this.user);
             this.reg.emit({ 
                 id: this.user.id, 
                 name: this.user.name, 
@@ -61,6 +62,7 @@ export class User {
         }
         else {
             this.user.id = id;
+            this.service.currentUserInit(this.user);
             this.reg.emit({ 
                 id: this.user.id, 
                 name: this.user.name, 
