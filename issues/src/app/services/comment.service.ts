@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 export class CommentService {
 
     setValue(date: string, assignerName: string, comment: string): string {
-        const value = "В " + date + " пользователь " + assignerName + " оставил комментарий " + "\"" + comment + "\"";
+        const value = "В " + date + " пользователь " + assignerName + " оставил комментарий " + "\"" + comment + "\"" + "\n";
         if (comment !== '' && assignerName !== '')
             return value;
 
