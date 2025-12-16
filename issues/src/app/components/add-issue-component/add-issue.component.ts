@@ -8,8 +8,8 @@ import { UserInterface } from "../../interfaces/user.interface";
     selector: 'app-add-form',
     standalone: true,
     imports: [FormsModule, CommonModule],
-    templateUrl: 'add-issue.html',
-    styleUrls: ['add-issue.scss']
+    templateUrl: './add-issue.html',
+    styleUrls: ['./add-issue.scss']
 })
 
 export class AddIssue {

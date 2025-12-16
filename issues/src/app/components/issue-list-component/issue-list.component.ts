@@ -10,8 +10,8 @@ import { User } from "../user-item-component/user-item.component";
     selector: 'app-issue-list',
     standalone: true,
     imports: [AddIssue, CommonModule, IssueItem, User],
-    templateUrl: 'issue-list.html',
-    styleUrls: ['issue-list.scss']
+    templateUrl: './issue-list.html',
+    styleUrls: ['./issue-list.scss']
 })
 
 export class IssueList {

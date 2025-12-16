@@ -8,8 +8,8 @@ import { DialogComponent } from "../dialog-issue-component/dialog-issue.componen
     selector: 'app-issue-item',
     standalone: true,
     imports: [MatCardModule],
-    templateUrl: 'issue-item.html',
-    styleUrls: ['issue-item.scss']
+    templateUrl: './issue-item.html',
+    styleUrls: ['./issue-item.scss']
 })
 
 export class IssueItem {

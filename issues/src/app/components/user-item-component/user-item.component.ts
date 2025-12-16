@@ -8,8 +8,8 @@ import { CommonModule } from "@angular/common";
     selector: 'app-user',
     standalone: true,
     imports: [FormsModule, CommonModule],
-    templateUrl: 'user-item.html',
-    styleUrls: ['user-item.scss']
+    templateUrl: './user-item.html',
+    styleUrls: ['./user-item.scss']
 })
 
 export class User {
