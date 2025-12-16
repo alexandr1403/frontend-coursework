@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions} from
 import { IssueInterface } from "../../interfaces/issue.interface";
 import { FormsModule } from "@angular/forms";
 import { CommentService } from "../../services/comment.service";
+import { UserService } from "../../services/user.service";
 
 @Component ({
     selector: 'app-dialog',
@@ -18,7 +19,7 @@ export class CommentComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<CommentComponent>, 
         @Inject(MAT_DIALOG_DATA) public data: { issue: IssueInterface  }, 
-        private service: CommentService) { } 
+        private service: CommentService, private userService: UserService) { } 
 
     ngOnInit(): void {
         this.updateHistory();
@@ -34,7 +35,9 @@ export class CommentComponent implements OnInit {
         const time = new Date().toISOString();
         if (this.comment !== '') {
             // косяк - комментарий оставляет не обязательно assigner. 
-            this.service.saveHistory(this.data.issue.id, time, this.data.issue.assigner.name, this.comment); 
+            // this.service.saveHistory(this.data.issue.id, time, this.data.issue.assigner.name, this.comment); 
+            console.log("Текущий пользователь", this.userService.currentUser.name);
+            this.service.saveHistory(this.data.issue.id, time, this.userService.currentUser.name, this.comment); 
             console.log("Комментарий оставлен: ", this.comment);
             this.updateHistory();
         }
