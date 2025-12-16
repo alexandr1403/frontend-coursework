@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { IssueInterface } from "../../interfaces/issue.interface";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
-import { CommentComponent } from "../comment-item-component/comment-item.component";
+import { CommentList } from "../comment-list-component/comment-list.component";
 
 @Component({
     selector: 'app-issue-item',
@@ -20,7 +20,7 @@ export class IssueItem {
     constructor(private dialog: MatDialog) { } 
 
     openIssueDialog(): void {
-        this.dialog.open(CommentComponent, { data: { issue: this.issue } });
+        this.dialog.open(CommentList, { data: { issue: this.issue } });
     }
 
     showIssue(): void {
