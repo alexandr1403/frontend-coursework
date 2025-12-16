@@ -56,7 +56,7 @@ export class IssueService {
 
     assign(id: number, user: UserInterface): void {
         const issues = this.getIssues();
-        const item = issues.find(item => item.id === id)
+        const item = issues.find(item => item.id === id);
         if (item && user.id > 0)
             item.assigner = user;
         else
