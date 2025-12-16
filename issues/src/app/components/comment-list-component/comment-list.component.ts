@@ -35,8 +35,6 @@ export class CommentList implements OnInit {
     commentIssue(): void {
         const time = new Date().toISOString();
         if (this.comment !== '') {
-            // косяк - комментарий оставляет не обязательно assigner. 
-            // this.service.saveHistory(this.data.issue.id, time, this.data.issue.assigner.name, this.comment); 
             console.log("Текущий пользователь", this.userService.currentUser.name);
             this.service.saveHistory(this.data.issue.id, time, this.userService.currentUser.name, this.comment); 
             console.log("Комментарий оставлен: ", this.comment);

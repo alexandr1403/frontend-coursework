@@ -43,7 +43,7 @@ export class UserService {
             console.log("Успешная регистрация! ");
         }
         else 
-            console.log("Вы уже зарегестрированы."); // похоже, else тут невозможен. 
+            console.log("Вы уже зарегестрированы.");
     }
 
     logIn(user: UserInterface): number {

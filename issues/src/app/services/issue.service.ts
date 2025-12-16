@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { IssueInterface } from "../interfaces/issue.interface";
-import { literalMap } from "@angular/compiler";
 import { UserInterface } from "../interfaces/user.interface";
 
 @Injectable({

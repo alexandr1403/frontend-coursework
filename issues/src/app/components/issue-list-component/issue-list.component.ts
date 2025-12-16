@@ -48,7 +48,6 @@ export class IssueList implements OnInit {
 
     showClosed(): void {
         this.isOpened = false;
-        // this.closed = this.issues.filter(item => item.opened == false);
     }
 
     showOpened(): void {
