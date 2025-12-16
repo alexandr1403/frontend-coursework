@@ -24,9 +24,9 @@
             }
         </select>
 
-        <!-- <button (click)="doFilter()">
-            Фильтр 
-        </button> -->
+        <button (click)="clearFilters()">
+            Сбросить фильтры 
+        </button>
 
         <h2>Всего задач: {{(issues.length + closed.length)}} </h2> 
         @if (!isFiltered) {

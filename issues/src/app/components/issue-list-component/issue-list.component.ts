@@ -36,9 +36,14 @@ export class IssueList implements OnInit, OnDestroy {
     subs: Subscription = new Subscription();
 
     isFiltered: boolean = false; // выводим отфильтрованные? 
-    // observer: Observable<any> = 
 
-    Changes(): Observable<any> {
+    clearFilters(): void {
+        this.filterTag = null;
+        this.filterPriority = null;
+        this.applyFilters();
+    }
+
+    detectChanges(): Observable<any> {
         if (this.tags !== null) {
             console.log("Сменилось tags");
             return of (this.filterTag);
@@ -51,7 +56,7 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     doFilter(): void {
-        this.subs = this.Changes().subscribe(() => {
+        this.subs = this.detectChanges().subscribe(() => {
             this.applyFilters();
             console.log("Фильтры сработали? ");
             console.log(this.filteredIssues);
@@ -108,6 +113,9 @@ export class IssueList implements OnInit, OnDestroy {
             this.filterByPriority(this.filterPriority);
             this.isFiltered = true;
         }
+        if (this.filterTag == null && this.filterPriority == null) {
+            this.isFiltered = false;
+        }
     }
 
     cancelFilters(): void {
@@ -154,11 +162,6 @@ export class IssueList implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.updateIssues();
-        // this.subs = this.Changes().subscribe(() => {
-        //     this.applyFilters();
-        //     console.log("Фильтры сработали? ");
-        //     console.log(this.filteredIssues);
-        // })
     }
 
     ngOnDestroy(): void {
