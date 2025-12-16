@@ -1,10 +1,11 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { IssueInterface, IssuePriority, IssueType } from "../../interfaces/issue.interface";
 import { AddIssue } from "../add-issue-component/add-issue.component";
 import { CommonModule } from "@angular/common";
 import { IssueItem } from "../issue-item-component/issue-item.component";
 import { UserInterface } from "../../interfaces/user.interface";
 import { User } from "../user-item-component/user-item.component";
+import { IssueService } from "../../services/issue.service";
 
 @Component({
     selector: 'app-issue-list',
@@ -14,7 +15,9 @@ import { User } from "../user-item-component/user-item.component";
     styleUrls: ['./issue-list.scss']
 })
 
-export class IssueList {
+export class IssueList implements OnInit {
+
+    constructor(private service: IssueService) { };
 
     issues: IssueInterface[] = [];
     closed: IssueInterface[] = [];
@@ -22,7 +25,7 @@ export class IssueList {
 
     user: UserInterface = { id: 0, name: '', password: '' }; // user - общий на всю программу (хз как это оптимально сделать) 
 
-    initUser(us: {id: number, name: string, password: string}): void {
+    initUser(us: { id: number, name: string, password: string }): void {
         this.user.id = us.id;
         this.user.name = us.name;
         this.user.password = us.password;
@@ -36,30 +39,28 @@ export class IssueList {
             opened: true
         }
 
-        this.issues.push({
-            ...adding,
-            id: Date.now()
-        });
+        this.service.addIssue(adding);
+        this.updateIssues();
 
         console.log(this.issues);
     }
 
     closeIssue(id: number): void {
-        const item = this.issues.find(item => item.id === id)
-        if (item)
-            this.closed.push(item);
-
-        this.issues = this.issues.filter(item => item.id !== id);
+        this.service.closeIssue(id);
+        this.updateIssues();
     }
 
     assignYourself(id: number): void {
-        const item = this.issues.find(item => item.id === id)
-        if (item && this.user.id > 0)
-            item.assigner = this.user;
-        else
-            console.log("Войдите в систему. Нельзя брать задачу без регистрации. "); 
+        // const item = this.issues.find(item => item.id === id)
+        // if (item && this.user.id > 0)
+        //     item.assigner = this.user;
+        // else
+        //     console.log("Войдите в систему. Нельзя брать задачу без регистрации. "); 
 
-        console.log(item?.assigner);
+        // console.log(item?.assigner);
+
+        this.service.assign(id, this.user);
+        this.updateIssues();
     }
 
     showClosed(): void {
@@ -69,5 +70,14 @@ export class IssueList {
 
     showOpened(): void {
         this.isOpened = true;
+    }
+
+    updateIssues(): void {
+        this.issues = this.service.getIssues();
+        this.closed = this.service.getClosed();
+    }
+
+    ngOnInit(): void {
+        this.updateIssues();
     }
 }
