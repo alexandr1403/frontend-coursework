@@ -35,6 +35,8 @@ export class IssueList implements OnInit, OnDestroy {
     priors = Object.values(IssuePriority);
     subs: Subscription = new Subscription();
 
+    isFiltered: boolean = false;
+
     Changes(): Observable<any> {
         if (this.tags !== null) {
             return of (this.filterTag);
@@ -95,10 +97,18 @@ export class IssueList implements OnInit, OnDestroy {
         // this.Changes().subscribe(next: {
         //     this.applyFilters();
         // });
-        if (this.filterTag !== null)
+        if (this.filterTag !== null) {
             this.filterByTag(this.filterTag);
-        if (this.filterPriority !== null)
+            this.isFiltered = true;
+        }
+        if (this.filterPriority !== null) {
             this.filterByPriority(this.filterPriority);
+            this.isFiltered = true;
+        }
+    }
+
+    cancelFilters(): void {
+        this.isFiltered = false;
     }
 
     addIssue(newIssue: { title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
@@ -125,16 +135,18 @@ export class IssueList implements OnInit, OnDestroy {
 
     showClosed(): void {
         this.isOpened = false;
+        this.isFiltered = false;
     }
 
     showOpened(): void {
         this.isOpened = true;
+        this.isFiltered = false;
     }
 
     updateIssues(): void {
         this.issues = this.service.getIssues();
         this.closed = this.service.getClosed();
-        this.filteredIssues = this.issues; // сейчас фильтровать можно только открытые задачи. 
+        this.filteredIssues = this.issues.concat(this.closed);
     }
 
     ngOnInit(): void {
