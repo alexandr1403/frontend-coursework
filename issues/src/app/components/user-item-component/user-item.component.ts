@@ -64,6 +64,7 @@ export class User {
         }
         else {
             this.user.id = id;
+            console.log("Вошёл юзер: ", this.user.name);
             this.service.currentUserInit(this.user);
             this.reg.emit({ 
                 id: this.user.id, 

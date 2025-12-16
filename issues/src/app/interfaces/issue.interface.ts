@@ -2,6 +2,7 @@ import { UserInterface } from "./user.interface";
 
 export interface IssueInterface {
     id: number;
+    creator: UserInterface;
     title: string;
     content?: string;
     type: IssueType;

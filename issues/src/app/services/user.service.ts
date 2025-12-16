@@ -55,7 +55,8 @@ export class UserService {
         }
         else if (user.password === pwd) {
             console.log("Успешный вход! ");
-            return user.id;
+            // return user.id;
+            return 5;
         }
 
         console.log("Неверный пароль.");

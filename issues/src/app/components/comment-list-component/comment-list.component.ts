@@ -19,7 +19,7 @@ export class CommentList implements OnInit {
     history: string[] = [];
 
     constructor(public dialogRef: MatDialogRef<CommentList>, 
-        @Inject(MAT_DIALOG_DATA) public data: { issue: IssueInterface  }, 
+        @Inject(MAT_DIALOG_DATA) public data: { issue: IssueInterface }, 
         private service: CommentService, private userService: UserService) { } 
 
     ngOnInit(): void {

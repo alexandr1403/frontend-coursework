@@ -117,12 +117,13 @@ export class IssueList implements OnInit, OnDestroy {
         this.isFiltered = false;
     }
 
-    addIssue(newIssue: { title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
+    addIssue(newIssue: { creator: UserInterface, title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
         const adding: Omit<IssueInterface, 'id'> = {
             ...newIssue,
             opened: true
         }
 
+        console.log("Креэйтор: ", adding.creator.name);
         this.service.addIssue(adding);
         this.updateIssues();
 
@@ -135,6 +136,7 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     assignYourself(id: number): void {
+        console.log("текущий юзер: ", this.userService.currentUser.name, this.userService.currentUser.id);
         this.service.assign(id, this.userService.currentUser);
         this.updateIssues();
     }
