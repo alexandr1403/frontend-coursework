@@ -7,6 +7,8 @@ import { UserInterface } from "../interfaces/user.interface";
 
 export class UserService {
 
+    private readonly KEY = 'user-list';
+
     currentUser: UserInterface = { id: 0, name: '', password: '' };
 
     currentUserInit(user: UserInterface): void {
@@ -40,17 +42,31 @@ export class UserService {
         const pwd = this.getUser(key)?.password;
         if (pwd == null) {
             this.saveUser(key, user);
+            this.addUser(user);
             console.log("Успешная регистрация! ");
         }
         else 
             console.log("Вы уже зарегестрированы.");
     }
 
+    getUsers(): string[] {
+        const users = localStorage.getItem(this.KEY);
+        return (users)? JSON.parse(users) : [];
+    }
+
+    addUser(user: UserInterface): void {
+        let users = this.getUsers();
+        if (users) {
+            users.push(user.name);
+            localStorage.setItem(this.KEY, JSON.stringify(users));
+        }
+    }
+
     logIn(user: UserInterface): number {
         const key = this.setKey(user.id, user.name);
         const pwd = this.getUser(key)?.password;
         const id = this.getUser(key)?.id;
-        
+
         if (pwd == null) {
             console.log("Зарегистрируйтесь.");
             return -1;

@@ -28,6 +28,8 @@ export class IssueList implements OnInit, OnDestroy {
 
     filterTag: IssueType | null = null;
     filterPriority: IssuePriority | null = null;
+    filterCreator: string | null = null;
+    filterAssigner: string | null = null;
 
     filteredIssues: IssueInterface[] = [];
 
@@ -37,9 +39,14 @@ export class IssueList implements OnInit, OnDestroy {
 
     isFiltered: boolean = false; // выводим отфильтрованные? 
 
+    users: string[] = []; // имена зарегистрированных пользователей 
+
     clearFilters(): void {
         this.filterTag = null;
         this.filterPriority = null;
+        this.filterCreator = null;
+        this.filterAssigner = null;
+        
         this.isFiltered = false;
     }
 
@@ -111,6 +118,28 @@ export class IssueList implements OnInit, OnDestroy {
             this.filterByPriority(this.filterPriority);
             this.isFiltered = true;
         }
+        if (this.filterCreator !== null) {
+            this.filterByCreator(this.filterCreator);
+            this.isFiltered = true;
+        }
+        if (this.filterAssigner !== null) {
+            this.filterByAssigner(this.filterAssigner);
+            this.isFiltered = true;
+        }
+    }
+
+    filterByCreator(filterCreator: string) {
+        this.filteredIssues = this.filteredIssues.filter(item => {
+            if (item.creator != undefined)
+                item.creator.name === filterCreator
+        });
+    }
+
+    filterByAssigner(filterAssigner: string) {
+        this.filteredIssues = this.filteredIssues.filter(item => {
+            if (item.assigner != undefined)
+                item.assigner.name === filterAssigner;
+        })
     }
 
     cancelFilters(): void {
@@ -159,6 +188,7 @@ export class IssueList implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.updateIssues();
+        this.users = this.userService.getUsers();
     }
 
     ngOnDestroy(): void {

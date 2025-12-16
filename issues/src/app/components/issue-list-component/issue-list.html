@@ -24,6 +24,18 @@
             }
         </select>
 
+        <select [(ngModel)]="filterCreator" name="type" (click)="doFilter()" class="select-form"> 
+            @for (type of users; track type) {
+                <option [value]="type">{{type}}</option>
+            }
+        </select>
+
+        <select [(ngModel)]="filterAssigner" name="type" (click)="doFilter()" class="select-form"> 
+            @for (type of users; track type) {
+                <option [value]="type">{{type}}</option>
+            }
+        </select>
+
         <button (click)="clearFilters()">
             Сбросить фильтры 
         </button>
