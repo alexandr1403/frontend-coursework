@@ -40,7 +40,7 @@ export class IssueList implements OnInit, OnDestroy {
     clearFilters(): void {
         this.filterTag = null;
         this.filterPriority = null;
-        this.applyFilters();
+        this.isFiltered = false;
     }
 
     detectChanges(): Observable<any> {
@@ -112,9 +112,6 @@ export class IssueList implements OnInit, OnDestroy {
         if (this.filterPriority !== null) {
             this.filterByPriority(this.filterPriority);
             this.isFiltered = true;
-        }
-        if (this.filterTag == null && this.filterPriority == null) {
-            this.isFiltered = false;
         }
     }
 
