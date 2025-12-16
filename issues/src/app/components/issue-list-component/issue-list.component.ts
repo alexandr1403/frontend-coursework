@@ -8,7 +8,7 @@ import { User } from "../user-item-component/user-item.component";
 import { IssueService } from "../../services/issue.service";
 import { UserService } from "../../services/user.service";
 import { FormsModule } from "@angular/forms";
-import { concat, Observable, of, Subscription } from "rxjs";
+import { Observable, of, Subscription } from "rxjs";
 
 @Component({
     selector: 'app-issue-list',
@@ -102,9 +102,7 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     applyFilters(): void {
-        // this.Changes().subscribe(next: {
-        //     this.applyFilters();
-        // });
+        this.updateIssues();
         if (this.filterTag !== null) {
             this.filterByTag(this.filterTag);
             this.isFiltered = true;
