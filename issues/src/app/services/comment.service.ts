@@ -6,20 +6,24 @@ import { Injectable } from "@angular/core";
 
 export class CommentService {
 
-    setValue(date: number, assignerName: string, comment: string): string {
-        const value = "В " + date.toString() + " пользователь " + assignerName + " оставил клмментарий " + comment;
-        if (comment !== '')
+    setValue(date: string, assignerName: string, comment: string): string {
+        const value = "В " + date + " пользователь " + assignerName + " оставил комментарий " + "\"" + comment + "\"";
+        if (comment !== '' && assignerName !== '')
             return value;
 
         return '';
     }
 
-    getHistory(): string[] {
-        return [];
+    getHistory(key: number): string[] {
+        const history = localStorage.getItem(key.toString());
+        return history? JSON.parse(history): [];
     }
 
-    saveHistory(key: number, date: number, assignerName: string, comment: string): void {
+    saveHistory(key: number, date: string, assignerName: string, comment: string): void {
+        const history = this.getHistory(key);
         const value = this.setValue(date, assignerName, comment);
-        localStorage.setItem(key.toString(), value);
+        if (value != '')
+            history.push(value);
+        localStorage.setItem(key.toString(), JSON.stringify(history));
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions} from "@angular/material/dialog";
 import { IssueInterface } from "../../interfaces/issue.interface";
 import { FormsModule } from "@angular/forms";
@@ -11,13 +11,18 @@ import { CommentService } from "../../services/comment.service";
     templateUrl: './dialog-issue.html',
     styleUrls: ['./dialog-issue.scss']
 })
-export class DialogComponent {
+export class DialogComponent implements OnInit {
 
     comment: string = '';
+    history: string[] = [];
 
     constructor(public dialogRef: MatDialogRef<DialogComponent>, 
-        @Inject(MAT_DIALOG_DATA) public data: { 
-            issue: IssueInterface  }, private service: CommentService) { } 
+        @Inject(MAT_DIALOG_DATA) public data: { issue: IssueInterface  }, 
+        private service: CommentService) { } 
+
+    ngOnInit(): void {
+        this.updateHistory();
+    }
 
     closeDialog(): void {
         this.dialogRef.close('Диалог закрыт. ');
@@ -26,8 +31,20 @@ export class DialogComponent {
     }
 
     commentIssue(): void {
-        const time = Date.now();
-        this.service.saveHistory(this.data.issue.id, time, this.data.issue.assigner.name, this.comment);
-        console.log("Комментарий оставлен: ", this.comment);
+        const time = new Date().toISOString();
+        if (this.comment !== '') {
+            this.service.saveHistory(this.data.issue.id, time, this.data.issue.assigner.name, this.comment);
+            console.log("Комментарий оставлен: ", this.comment);
+            this.updateHistory();
+        }
+        else
+            console.log("Введите что-нибудь. ");
+
+        this.comment = '';
     }
+
+    updateHistory(): void {
+        this.history = this.service.getHistory(this.data.issue.id);
+    }
+    
 }

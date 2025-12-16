@@ -35,7 +35,9 @@ export class User {
                 password: this.user.password 
             });
         }
-        
+        else
+            console.log("Введи пароль, чубатый");
+
         this.isStartLogging = false;
 
         this.user.id = 0; 
