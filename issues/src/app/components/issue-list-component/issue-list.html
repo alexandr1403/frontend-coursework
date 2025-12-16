@@ -12,21 +12,21 @@
         </button>
 
         <h3 style="margin-top: 20px;">Фильтры: </h3>
-        <select [(ngModel)]="filterTag" name="type" class="select-form"> 
+        <select [(ngModel)]="filterTag" name="type" (click)="doFilter()" class="select-form"> 
             @for (type of tags; track type) {
                 <option [value]="type">{{type}}</option>
             }
         </select>
 
-        <select [(ngModel)]="filterPriority" name="type" class="select-form"> 
+        <select [(ngModel)]="filterPriority" (click)="doFilter()" name="type" class="select-form"> 
             @for (type of priors; track type) {
                 <option [value]="type">{{type}}</option>
             }
         </select>
 
-        <button (click)="doFilter()">
+        <!-- <button (click)="doFilter()">
             Фильтр 
-        </button>
+        </button> -->
 
         <h2>Всего задач: {{(issues.length + closed.length)}} </h2> 
         @if (!isFiltered) {
