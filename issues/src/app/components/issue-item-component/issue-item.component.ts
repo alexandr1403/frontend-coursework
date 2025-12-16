@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { IssueInterface } from "../../interfaces/issue.interface";
 import { MatCardModule } from "@angular/material/card";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogComponent } from "../dialog-issue-component/dialog-issue.component";
 
 @Component({
     selector: 'app-issue-item',
@@ -14,6 +16,12 @@ export class IssueItem {
     @Input() issue!: IssueInterface;
     @Output() close = new EventEmitter<number>();
     @Output() assign = new EventEmitter<number>();
+
+    constructor(private dialog: MatDialog) { } 
+
+    openIssueDialog(): void {
+        this.dialog.open(DialogComponent, { data: { issue: this.issue } });
+    }
 
     showIssue(): void {
         console.log(this.issue);
