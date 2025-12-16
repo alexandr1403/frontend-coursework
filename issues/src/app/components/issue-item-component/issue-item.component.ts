@@ -12,7 +12,8 @@ import { MatCardModule } from "@angular/material/card";
 
 export class IssueItem {
     @Input() issue!: IssueInterface;
-    @Output() close = new EventEmitter<number>()
+    @Output() close = new EventEmitter<number>();
+    @Output() assign = new EventEmitter<number>();
 
     showIssue(): void {
         console.log(this.issue);
@@ -21,5 +22,10 @@ export class IssueItem {
     closeIssue(): void {
         this.issue.opened = false;
         this.close.emit(this.issue.id);
+    }
+
+    assignYourself(): void {
+        this.assign.emit(this.issue.id);
+        console.log("Информация о вашем действии успешно передана в компонент задач. ");
     }
 }
