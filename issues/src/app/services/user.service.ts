@@ -7,7 +7,7 @@ import { UserInterface } from "../interfaces/user.interface";
 
 export class UserService {
 
-    getKey(id: number, name: string): string {
+    setKey(id: number, name: string): string {
         const key = id.toString() + '|' + name;
         return key;
     }
@@ -27,7 +27,7 @@ export class UserService {
     }
 
     registerUser(user: UserInterface): void {
-        const key = this.getKey(user.id, user.name);
+        const key = this.setKey(user.id, user.name);
         const pwd = this.getUser(key)?.password;
         if (pwd == null) {
             this.saveUser(key, user);
@@ -38,7 +38,7 @@ export class UserService {
     }
 
     logIn(user: UserInterface): number {
-        const key = this.getKey(user.id, user.name);
+        const key = this.setKey(user.id, user.name);
         const pwd = this.getUser(key)?.password;
         if (pwd == null) {
             console.log("Зарегистрируйтесь.");

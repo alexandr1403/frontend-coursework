@@ -34,6 +34,10 @@ export class User {
             name: this.user.name, 
             password: this.user.password 
         });
+
+        this.user.id = 0; 
+        this.user.name = ''; 
+        this.user.password = '';
     }
 
     logIn(): void {
@@ -58,6 +62,10 @@ export class User {
             name: this.user.name, 
             password: this.user.password 
         });
+
+        this.user.id = 0; 
+        this.user.name = ''; 
+        this.user.password = '';
     }
 
     startLog(): void {

@@ -3,21 +3,16 @@
         <mat-card-content>
             <h2>{{issue.title}}</h2>
             <!-- <img mat-card-image src={{item.Poster}}>  -->
-            <h3>Что делать: {{issue.content}} </h3>
             <h3>Тип задачи: {{issue.type}} </h3>
             <h3>Приоритет: {{issue.priority}} </h3> 
 
-            <button (click)="closeIssue()" class="open-btn"> 
-                Закрыть задачу 
-            </button>
-
             <button (click)="assignYourself()" class="saved-btn"> 
                 Взять задачу 
-            </button>
+            </button> 
 
-            <!-- <button (click)="deleteFromSave(item.imdbID)" class="del-saved-btn" *ngIf="isShown"> 
-                Удалить из избранного 
-            </button> -->
+            <button (click)="openIssueDialog()" class="del-saved-btn"> 
+                Открыть 
+            </button>
 
         </mat-card-content>
 
