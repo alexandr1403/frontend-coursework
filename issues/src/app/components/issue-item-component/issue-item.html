@@ -3,13 +3,8 @@
         <mat-card-content>
             <h2>{{issue.title}}</h2>
             <!-- <img mat-card-image src={{item.Poster}}>  -->
-            <h3>Что делать: {{issue.content}} </h3>
             <h3>Тип задачи: {{issue.type}} </h3>
             <h3>Приоритет: {{issue.priority}} </h3> 
-
-            <button (click)="closeIssue()" class="open-btn"> 
-                Закрыть задачу 
-            </button>
 
             <button (click)="assignYourself()" class="saved-btn"> 
                 Взять задачу 
