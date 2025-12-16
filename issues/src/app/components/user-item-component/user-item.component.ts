@@ -8,8 +8,8 @@ import { CommonModule } from "@angular/common";
     selector: 'app-user',
     standalone: true,
     imports: [FormsModule, CommonModule],
-    templateUrl: 'user-item.html',
-    styleUrls: ['user-item.scss']
+    templateUrl: './user-item.html',
+    styleUrls: ['./user-item.scss']
 })
 
 export class User {
@@ -26,14 +26,19 @@ export class User {
 
     register(): void {
         this.user.id = Date.now();
-        this.service.registerUser(this.user);
-        this.isStartLogging = false;
+        if (this.user.name.trim() && this.user.password.trim()) {
+            this.service.registerUser(this.user);
 
-        this.reg.emit({ 
-            id: this.user.id, 
-            name: this.user.name, 
-            password: this.user.password 
-        });
+            this.reg.emit({ 
+                id: this.user.id, 
+                name: this.user.name, 
+                password: this.user.password 
+            });
+        }
+        else
+            console.log("Введи пароль, чубатый");
+
+        this.isStartLogging = false;
 
         this.user.id = 0; 
         this.user.name = ''; 
@@ -50,18 +55,20 @@ export class User {
          * Изменено 2: нет, это проблема. Добавил отдельную issue. 
          */
         let id = this.service.logIn(this.user); // дописать 
-        if (id == -1) 
+        if (id == -1) {
             console.log("Ну-ка выйди и зайди нормально. ");
-        else
+            this.user.id = -1;
+        }
+        else {
             this.user.id = id;
+            this.reg.emit({ 
+                id: this.user.id, 
+                name: this.user.name, 
+                password: this.user.password 
+            });
+        }
         
         this.isStartLogging = false;
-
-        this.reg.emit({ 
-            id: this.user.id, 
-            name: this.user.name, 
-            password: this.user.password 
-        });
 
         this.user.id = 0; 
         this.user.name = ''; 
