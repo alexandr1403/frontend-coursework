@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { IssueInterface } from "../interfaces/issue.interface";
-import { UserInterface } from "../interfaces/user.interface";
+import { IssueInterface } from "../../interfaces/issue.interface";
+import { UserInterface } from "../../interfaces/user.interface";
 
 @Injectable({
     providedIn: 'root',
@@ -68,8 +68,5 @@ export class IssueService {
             console.log("Войдите в систему. Нельзя брать задачу без регистрации. "); 
             return false;
         }
-
-        // console.log(item?.assigner);
-        // this.saveIssues(issues);
     }
 }

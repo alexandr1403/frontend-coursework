@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { IssueInterface } from "../../interfaces/issue.interface";
+import { IssueInterface, IssuePriority, IssueType } from "../../interfaces/issue.interface";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
 import { CommentList } from "../comment-list-component/comment-list.component";
@@ -15,7 +15,20 @@ import { NotifyStates } from "../../interfaces/notify.interface";
 })
 
 export class IssueItem {
-    @Input() issue!: IssueInterface;
+    /**
+     * Тест падает без явной инициализации перед передачей данных. 
+     */
+    @Input() issue: IssueInterface = {
+        id: 0,
+        creator: { id: 0, name: '', password: '' }, 
+        title: '',
+        content: '',
+        type: IssueType.BUG,
+        priority: IssuePriority.CRITICAL,
+        opened: true,
+        assigner: { id: 170000, name: 'alex', password: '' },
+    };
+
     @Output() close = new EventEmitter<number>();
     @Output() assign = new EventEmitter<number>();
     @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
