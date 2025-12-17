@@ -7,14 +7,14 @@ import { NotifyInterface } from "../interfaces/notify.interface";
 })
 
 export class NotificationService {
-  private _notificationSubject = new Subject<NotifyInterface | null>();
-  notification$ = this._notificationSubject.asObservable(); // Экспортируем как Observable
+    private notificationSubject = new Subject<NotifyInterface | null>();
+    notification$ = this.notificationSubject.asObservable(); // Экспортируем как Observable
 
-  show(data: NotifyInterface) {
-    this._notificationSubject.next(data);
-  }
+    show(data: NotifyInterface) {
+        this.notificationSubject.next(data);
+    }
 
-  hide() {
-    this._notificationSubject.next(null);
-  }
+    hide() {
+        this.notificationSubject.next(null);
+    }
 }

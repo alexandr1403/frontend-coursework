@@ -8,16 +8,10 @@ import { CommonModule } from "@angular/common";
     selector: 'app-notification',
     standalone: true,
     imports: [CommonModule],
-    template: `<div *ngIf="notification$ | async as notification" [class]="notification.type">
-                {{ notification.message }}
-                </div>`,
-    styles: [`
-        div { padding: 10px; border-radius: 5px; }
-        .success { background-color: lightgreen; }
-        .error { background-color: salmon; }
-        .info { background-color: lightblue; }
-    `]
+    templateUrl: './notification.html',
+    styleUrls: ['./notification.scss']
 })
+
 export class NotificationComponent implements OnInit {
     notification$?: Observable<NotifyInterface | null>;
 

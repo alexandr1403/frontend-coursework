@@ -9,18 +9,20 @@ import { IssueService } from "../../services/issue.service";
 import { UserService } from "../../services/user.service";
 import { FormsModule } from "@angular/forms";
 import { Observable, of, Subscription } from "rxjs";
+import { NotificationComponent } from "../notification-component/notification.component";
+import { NotificationService } from "../../services/notification.service";
 
 @Component({
     selector: 'app-issue-list',
     standalone: true,
-    imports: [AddIssue, CommonModule, IssueItem, User, FormsModule],
+    imports: [AddIssue, CommonModule, IssueItem, User, FormsModule, NotificationComponent],
     templateUrl: './issue-list.html',
     styleUrls: ['./issue-list.scss']
 })
 
 export class IssueList implements OnInit, OnDestroy {
 
-    constructor(private service: IssueService, private userService: UserService) { };
+    constructor(private service: IssueService, private userService: UserService, private notifyService: NotificationService) { };
 
     issues: IssueInterface[] = [];
     closed: IssueInterface[] = [];
@@ -197,5 +199,11 @@ export class IssueList implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.subs.unsubscribe();
+    }
+
+    showToast() {
+        this.notifyService.show({ message: 'Это всплывающее уведомление!', type: 'success' });
+        // Скрыть через 2 секунды
+        setTimeout(() => this.notifyService.hide(), 2000);
     }
 }
