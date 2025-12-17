@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions} from "@angular/material/dialog";
 import { IssueInterface } from "../../interfaces/issue.interface";
 import { FormsModule } from "@angular/forms";
-import { CommentService } from "../../services/comment.service";
-import { UserService } from "../../services/user.service";
+import { CommentService } from "../../services/comment-service/comment.service";
+import { UserService } from "../../services/user-service/user.service";
 import { CommentComponent } from "../comment-item-component/comment-item.component";
 
 @Component ({

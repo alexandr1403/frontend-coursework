@@ -5,12 +5,12 @@ import { CommonModule } from "@angular/common";
 import { IssueItem } from "../issue-item-component/issue-item.component";
 import { UserInterface } from "../../interfaces/user.interface";
 import { User } from "../user-item-component/user-item.component";
-import { IssueService } from "../../services/issue.service";
-import { UserService } from "../../services/user.service";
+import { IssueService } from "../../services/issue-service/issue.service";
+import { UserService } from "../../services/user-service/user.service";
 import { FormsModule } from "@angular/forms";
 import { Observable, of, Subscription } from "rxjs";
 import { NotificationComponent } from "../notification-component/notification.component";
-import { NotificationService } from "../../services/notification.service";
+import { NotificationService } from "../../services/notify-service/notification.service";
 import { NotifyInterface, NotifyStates } from "../../interfaces/notify.interface";
 
 @Component({

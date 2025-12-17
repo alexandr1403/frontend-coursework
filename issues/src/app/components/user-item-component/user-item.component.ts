@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { UserInterface } from "../../interfaces/user.interface";
-import { UserService } from "../../services/user.service";
+import { UserService } from "../../services/user-service/user.service";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { NotifyStates } from "../../interfaces/notify.interface";

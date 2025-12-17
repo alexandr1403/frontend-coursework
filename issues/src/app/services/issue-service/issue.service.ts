@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { IssueInterface } from "../interfaces/issue.interface";
-import { UserInterface } from "../interfaces/user.interface";
+import { IssueInterface } from "../../interfaces/issue.interface";
+import { UserInterface } from "../../interfaces/user.interface";
 
 @Injectable({
     providedIn: 'root',
