@@ -75,6 +75,7 @@ export class UserService {
             return -1;
         }
         else if (user.password === pwd) {
+            console.log("Пароль с БД: ", pwd);
             if (user.name.localeCompare(this.currentUser.name) === 0) {
                 console.log("Вы уже в системе.");
                 return 0;
@@ -86,7 +87,7 @@ export class UserService {
         }
 
         console.log("Неверный пароль.");
-        return -1;
+        return 5;
     }
 
     cleaner(): void {

@@ -11,7 +11,7 @@ import { FormsModule } from "@angular/forms";
 import { Observable, of, Subscription } from "rxjs";
 import { NotificationComponent } from "../notification-component/notification.component";
 import { NotificationService } from "../../services/notification.service";
-import { NotifyInterface } from "../../interfaces/notify.interface";
+import { NotifyInterface, NotifyStates } from "../../interfaces/notify.interface";
 
 @Component({
     selector: 'app-issue-list',
@@ -175,8 +175,20 @@ export class IssueList implements OnInit, OnDestroy {
 
     assignYourself(id: number): void {
         console.log("текущий юзер: ", this.userService.currentUser.name, this.userService.currentUser.id);
-        this.service.assign(id, this.userService.currentUser);
+        let is = this.service.assign(id, this.userService.currentUser);
         this.updateIssues();
+        if (is) {
+            this.showToast({
+                message: "Задача взята. ",
+                state: NotifyStates.SUCCESS,
+            });
+        }
+        else {
+            this.showToast({
+                message: "Нельзя брать задачу без регистрации.",
+                state: NotifyStates.ERROR,
+            });
+        }
     }
 
     showClosed(): void {

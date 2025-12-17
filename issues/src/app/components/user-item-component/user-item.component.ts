@@ -13,12 +13,15 @@ import { NotifyStates } from "../../interfaces/notify.interface";
     styleUrls: ['./user-item.scss']
 })
 
+/**
+ * Код ошибки 5 - неверный пароль. 
+ */
 export class User {
     /**
      * Событие reg информирует компонент задач о входе пользователя в систему. 
      */
     @Output() reg = new EventEmitter<{ id: number, name: string, password: string }>();
-    @Output() note = new EventEmitter<{ message: string, type: NotifyStates }>();
+    @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
 
     constructor(private service: UserService) { };
     user: UserInterface = { id: 0, name: '', password: '' };
@@ -40,13 +43,13 @@ export class User {
                 });
                 this.note.emit({
                     message: "Успешная регистрация!",
-                    type: NotifyStates.SUCCESS,
+                    state: NotifyStates.SUCCESS,
                 });
             }
             else {
                 this.note.emit({
                     message: "Вы уже зарегистрированы.",
-                    type: NotifyStates.INFO,
+                    state: NotifyStates.INFO,
                 });
             }
         }
@@ -62,18 +65,26 @@ export class User {
 
     logIn(): void {
         let id = this.service.logIn(this.user);
-        if (id == -1) {
+        console.log("Вернулось id: ", id);
+        if (id == 5) {
+            this.user.id = -1;
+            this.note.emit({
+                message: "Неверный пароль ",
+                state: NotifyStates.ERROR,
+            })
+        }
+        else if (id == -1) {
             console.log("Ну-ка выйди и зайди нормально. ");
             this.user.id = -1;
             this.note.emit({
-                message: "Ну-ка выйди и зайди нормально. ",
-                type: NotifyStates.ERROR,
+                message: "Вы не зарегистрированы. ",
+                state: NotifyStates.ERROR,
             })
         }
         else if (id == 0) {
             this.note.emit({
                 message: "Вы уже в системе. ",
-                type: NotifyStates.INFO,
+                state: NotifyStates.INFO,
             })
         }
         else {
@@ -82,7 +93,7 @@ export class User {
             this.service.currentUserInit(this.user);
             this.note.emit({
                 message: "Успешный вход!",
-                type: NotifyStates.SUCCESS,
+                state: NotifyStates.SUCCESS,
             })
         }
         

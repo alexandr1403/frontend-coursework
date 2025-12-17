@@ -54,16 +54,22 @@ export class IssueService {
         this.saveIssues(issues);
     }
 
-    assign(id: number, user: UserInterface): void {
+    assign(id: number, user: UserInterface): boolean {
         const issues = this.getIssues();
         const item = issues.find(item => item.id === id);
         console.log("Юзер айди: ", user.id);
-        if (item && user.id > 0)
+        if (item && user.id > 0) {
             item.assigner = user;
-        else
+            console.log(item.assigner);
+            this.saveIssues(issues);
+            return true;
+        }
+        else {
             console.log("Войдите в систему. Нельзя брать задачу без регистрации. "); 
+            return false;
+        }
 
-        console.log(item?.assigner);
-        this.saveIssues(issues);
+        // console.log(item?.assigner);
+        // this.saveIssues(issues);
     }
 }

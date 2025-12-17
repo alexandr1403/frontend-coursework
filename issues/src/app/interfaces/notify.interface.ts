@@ -1,6 +1,6 @@
 export interface NotifyInterface {
     message: string;
-    type: NotifyStates;
+    state: NotifyStates;
 }
 
 export enum NotifyStates {

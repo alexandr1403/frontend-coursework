@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { UserInterface } from "../../interfaces/user.interface";
 import { UserService } from "../../services/user.service";
+import { NotifyStates } from "../../interfaces/notify.interface";
 
 @Component({
     selector: 'app-add-form',
@@ -17,6 +18,8 @@ export class AddIssue {
     @Output() itemAdd = new EventEmitter<{ 
         creator: UserInterface, title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface 
     }>();
+
+    @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
 
     constructor(private service: UserService) { };
 
@@ -43,6 +46,10 @@ export class AddIssue {
             if (!this.service.currentUser.name.trim()) {
                 console.log("Войдие в систему. Нельзя создавать задачу неавторизованным. ");
                 this.isVisibleAdding = false;
+                this.note.emit({
+                    message: "Войдие в систему. Нельзя создавать задачу неавторизованным. ",
+                    state: NotifyStates.ERROR,
+                })
                 return;
             }
 
@@ -54,6 +61,11 @@ export class AddIssue {
                 type: this.type,
                 priority: this.priority,
                 assigner: this.assigner,
+            });
+
+            this.note.emit({
+                message: "Задача добавлена.",
+                state: NotifyStates.SUCCESS,
             })
             
             this.isVisibleAdding = false;
