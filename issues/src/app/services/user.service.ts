@@ -70,8 +70,15 @@ export class UserService {
         const pwd = this.getUser(key)?.password;
         const id = this.getUser(key)?.id;
 
+        if (user.password === '') {
+            console.log("Введите пароль.");
+            this.currentUser.name = '';
+            return -2;
+        }
+
         if (pwd == null) {
             console.log("Зарегистрируйтесь.");
+            this.currentUser.name = '';
             return -1;
         }
         else if (user.password === pwd) {
@@ -87,6 +94,7 @@ export class UserService {
         }
 
         console.log("Неверный пароль.");
+        this.currentUser.name = '';
         return 5;
     }
 

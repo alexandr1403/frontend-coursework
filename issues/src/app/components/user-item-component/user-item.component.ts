@@ -53,8 +53,13 @@ export class User {
                 });
             }
         }
-        else
+        else {
             console.log("Введи пароль, чубатый");
+            this.note.emit({
+                message: "Введите пароль. ",
+                state: NotifyStates.INFO,
+            });
+        }
 
         this.isStartLogging = false;
 
@@ -71,6 +76,13 @@ export class User {
             this.note.emit({
                 message: "Неверный пароль ",
                 state: NotifyStates.ERROR,
+            })
+        }
+        else if (id == -2) {
+            this.user.id = -1;
+             this.note.emit({
+                message: "Введите пароль. ",
+                state: NotifyStates.INFO,
             })
         }
         else if (id == -1) {
