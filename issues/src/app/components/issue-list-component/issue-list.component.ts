@@ -28,6 +28,8 @@ export class IssueList implements OnInit, OnDestroy {
 
     filterTag: IssueType | null = null;
     filterPriority: IssuePriority | null = null;
+    filterCreator: string | null = null;
+    filterAssigner: string | null = null;
 
     filteredIssues: IssueInterface[] = [];
 
@@ -37,9 +39,14 @@ export class IssueList implements OnInit, OnDestroy {
 
     isFiltered: boolean = false; // выводим отфильтрованные? 
 
+    users: string[] = []; // имена зарегистрированных пользователей 
+
     clearFilters(): void {
         this.filterTag = null;
         this.filterPriority = null;
+        this.filterCreator = null;
+        this.filterAssigner = null;
+        
         this.isFiltered = false;
     }
 
@@ -111,22 +118,49 @@ export class IssueList implements OnInit, OnDestroy {
             this.filterByPriority(this.filterPriority);
             this.isFiltered = true;
         }
+        if (this.filterCreator !== null) {
+            this.filterByCreator(this.filterCreator);
+            this.isFiltered = true;
+        }
+        if (this.filterAssigner !== null) {
+            this.filterByAssigner(this.filterAssigner);
+            this.isFiltered = true;
+        }
+    }
+
+    filterByCreator(filterCreator: string) {
+        console.log("По создателю");
+        this.filteredIssues = this.filteredIssues.filter(item => 
+                item.creator.name.localeCompare(filterCreator) === 0
+        );
+    }
+
+    filterByAssigner(filterAssigner: string) {
+        console.log("По исполнителю");
+        this.filteredIssues = this.filteredIssues.filter(item => 
+                item.assigner.name.localeCompare(filterAssigner) === 0
+        );
     }
 
     cancelFilters(): void {
         this.isFiltered = false;
     }
 
-    addIssue(newIssue: { title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
+    addIssue(newIssue: { creator: UserInterface, title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
         const adding: Omit<IssueInterface, 'id'> = {
             ...newIssue,
             opened: true
         }
 
+        console.log("Креэйтор: ", adding.creator.name);
         this.service.addIssue(adding);
         this.updateIssues();
 
         console.log(this.issues);
+    }
+
+    addUser(us: { id: number, name: string, password: string }): void {
+        this.users.push(us.name);
     }
 
     closeIssue(id: number): void {
@@ -135,6 +169,7 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     assignYourself(id: number): void {
+        console.log("текущий юзер: ", this.userService.currentUser.name, this.userService.currentUser.id);
         this.service.assign(id, this.userService.currentUser);
         this.updateIssues();
     }
@@ -157,6 +192,7 @@ export class IssueList implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.updateIssues();
+        this.users = this.userService.getUsers();
     }
 
     ngOnDestroy(): void {

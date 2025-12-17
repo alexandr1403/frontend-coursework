@@ -22,6 +22,8 @@ export class IssueItem {
 
     openIssueDialog(): void {
         this.dialog.open(CommentList, { data: { issue: this.issue } });
+        console.log("Открыта задача: ", this.issue, " Создатель: ", this.issue.creator);
+        console.log(this.issue.creator.name.localeCompare("alex"));
     }
 
     showIssue(): void {

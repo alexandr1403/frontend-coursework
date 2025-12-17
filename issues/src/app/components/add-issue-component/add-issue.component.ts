@@ -3,6 +3,7 @@ import { IssuePriority, IssueType } from "../../interfaces/issue.interface";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { UserInterface } from "../../interfaces/user.interface";
+import { UserService } from "../../services/user.service";
 
 @Component({
     selector: 'app-add-form',
@@ -14,8 +15,10 @@ import { UserInterface } from "../../interfaces/user.interface";
 
 export class AddIssue {
     @Output() itemAdd = new EventEmitter<{ 
-        title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface 
+        creator: UserInterface, title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface 
     }>();
+
+    constructor(private service: UserService) { };
 
     isVisibleAdding: boolean = false;
 
@@ -33,24 +36,36 @@ export class AddIssue {
     }
 
     addIssue(): void {
-        if (!this.title.trim())
-            return;
+        try {
+            if (!this.title.trim())
+                return;
 
-        this.itemAdd.emit({
-            title: this.title.trim(),
-            content: this.content?.trim() || '',
-            type: this.type,
-            priority: this.priority,
-            assigner: this.assigner,
-        })
+            if (!this.service.currentUser.name.trim()) {
+                console.log("Войдие в систему. Нельзя создавать задачу неавторизованным. ");
+                this.isVisibleAdding = false;
+                return;
+            }
 
-        this.title = '';
-        this.content = '';
-        this.type = IssueType.BUG;
-        this.priority = IssuePriority.MEDIUM;
-        this.assigner = { id: 0, name: '', password: '' };
+            console.log(this.service.currentUser.name);
+            this.itemAdd.emit({
+                creator: this.service.currentUser,
+                title: this.title.trim(),
+                content: this.content?.trim() || '',
+                type: this.type,
+                priority: this.priority,
+                assigner: this.assigner,
+            })
+            
+            this.isVisibleAdding = false;
+        }
 
-        this.isVisibleAdding = false;
+        finally {
+            this.title = '';
+            this.content = '';
+            this.type = IssueType.BUG;
+            this.priority = IssuePriority.MEDIUM;
+            this.assigner = { id: 0, name: '', password: '' };
+        }
     }
 
     cancelAdding(): void {
