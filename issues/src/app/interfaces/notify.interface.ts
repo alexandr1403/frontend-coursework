@@ -1,4 +1,10 @@
 export interface NotifyInterface {
     message: string;
-    type: 'success' | 'error' | 'info';
+    type: NotifyStates;
+}
+
+export enum NotifyStates {
+    SUCCESS = 'success',
+    ERROR = 'error',
+    INFO = 'info'
 }

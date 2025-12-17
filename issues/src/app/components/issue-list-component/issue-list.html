@@ -84,11 +84,8 @@
     <!-- Передаём в event данные для инициализации пользователя, 
      который работает сейчас в программе.
      Изменено: общий текущий пользователь хранится в UserService. --> 
-    <app-user (reg)="addUser($event)"></app-user> 
+    <app-user (reg)="addUser($event)" (note)="showToast($event)"></app-user> 
 
     <app-notification></app-notification>
-    <button (click)="showToast()">
-        Показать уведомление 
-    </button> 
 
 </div>

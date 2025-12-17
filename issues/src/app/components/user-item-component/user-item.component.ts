@@ -3,6 +3,7 @@ import { UserInterface } from "../../interfaces/user.interface";
 import { UserService } from "../../services/user.service";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { NotifyStates } from "../../interfaces/notify.interface";
 
 @Component({
     selector: 'app-user',
@@ -17,6 +18,7 @@ export class User {
      * Событие reg информирует компонент задач о входе пользователя в систему. 
      */
     @Output() reg = new EventEmitter<{ id: number, name: string, password: string }>();
+    @Output() note = new EventEmitter<{ message: string, type: NotifyStates }>();
 
     constructor(private service: UserService) { };
     user: UserInterface = { id: 0, name: '', password: '' };
@@ -27,14 +29,26 @@ export class User {
     register(): void {
         this.user.id = Date.now();
         if (this.user.name.trim() && this.user.password.trim()) {
-            this.service.registerUser(this.user);
+            let is = this.service.registerUser(this.user);
 
             this.service.currentUserInit(this.user);
-            this.reg.emit({ 
-                id: this.user.id, 
-                name: this.user.name, 
-                password: this.user.password 
-            });
+            if (is) {
+                this.reg.emit({ 
+                    id: this.user.id, 
+                    name: this.user.name, 
+                    password: this.user.password 
+                });
+                this.note.emit({
+                    message: "Успешная регистрация!",
+                    type: NotifyStates.SUCCESS,
+                });
+            }
+            else {
+                this.note.emit({
+                    message: "Вы уже зарегистрированы.",
+                    type: NotifyStates.INFO,
+                });
+            }
         }
         else
             console.log("Введи пароль, чубатый");
@@ -47,25 +61,29 @@ export class User {
     }
 
     logIn(): void {
-        /**
-         * user потом не сможет войти! Он не знает старый id. 
-         * Возможно придётся упростить систему до имени. 
-         * 
-         * Изменено: вроде пофиксил, но не тестировал. 
-         * 
-         * Изменено 2: нет, это проблема. Добавил отдельную issue. 
-         * 
-         * Изменено 3: пофиксил - регистрация по имени. 
-         */
-        let id = this.service.logIn(this.user); // дописать 
+        let id = this.service.logIn(this.user);
         if (id == -1) {
             console.log("Ну-ка выйди и зайди нормально. ");
             this.user.id = -1;
+            this.note.emit({
+                message: "Ну-ка выйди и зайди нормально. ",
+                type: NotifyStates.ERROR,
+            })
+        }
+        else if (id == 0) {
+            this.note.emit({
+                message: "Вы уже в системе. ",
+                type: NotifyStates.INFO,
+            })
         }
         else {
             this.user.id = id;
             console.log("Вошёл юзер: ", this.user.name);
             this.service.currentUserInit(this.user);
+            this.note.emit({
+                message: "Успешный вход!",
+                type: NotifyStates.SUCCESS,
+            })
         }
         
         this.isStartLogging = false;

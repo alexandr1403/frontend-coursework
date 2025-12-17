@@ -11,6 +11,7 @@ import { FormsModule } from "@angular/forms";
 import { Observable, of, Subscription } from "rxjs";
 import { NotificationComponent } from "../notification-component/notification.component";
 import { NotificationService } from "../../services/notification.service";
+import { NotifyInterface } from "../../interfaces/notify.interface";
 
 @Component({
     selector: 'app-issue-list',
@@ -22,7 +23,9 @@ import { NotificationService } from "../../services/notification.service";
 
 export class IssueList implements OnInit, OnDestroy {
 
-    constructor(private service: IssueService, private userService: UserService, private notifyService: NotificationService) { };
+    constructor(private service: IssueService, 
+        private userService: UserService, 
+        private notifyService: NotificationService) { };
 
     issues: IssueInterface[] = [];
     closed: IssueInterface[] = [];
@@ -201,8 +204,8 @@ export class IssueList implements OnInit, OnDestroy {
         this.subs.unsubscribe();
     }
 
-    showToast() {
-        this.notifyService.show({ message: 'Это всплывающее уведомление!', type: 'success' });
+    showToast(note: NotifyInterface) {
+        this.notifyService.show(note);
         // Скрыть через 2 секунды
         setTimeout(() => this.notifyService.hide(), 2000);
     }

@@ -37,16 +37,19 @@ export class UserService {
         return null;
     }
 
-    registerUser(user: UserInterface): void {
+    registerUser(user: UserInterface): boolean {
         const key = this.setKey(user.id, user.name);
         const pwd = this.getUser(key)?.password;
         if (pwd == null) {
             this.saveUser(key, user);
             this.addUser(user);
             console.log("Успешная регистрация! ");
+            return true;
         }
-        else 
+        else {
             console.log("Вы уже зарегестрированы.");
+            return false;
+        }
     }
 
     getUsers(): string[] {
@@ -72,8 +75,14 @@ export class UserService {
             return -1;
         }
         else if (user.password === pwd) {
-            console.log("Успешный вход! ");
-            return id? id : 0;
+            if (user.name.localeCompare(this.currentUser.name) === 0) {
+                console.log("Вы уже в системе.");
+                return 0;
+            }
+            else {
+                console.log("Успешный вход! ");
+                return id? id : 0;
+            }
         }
 
         console.log("Неверный пароль.");
