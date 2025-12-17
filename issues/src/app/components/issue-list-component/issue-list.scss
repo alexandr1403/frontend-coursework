@@ -3,10 +3,28 @@
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
-    // align-items: center;
-    // align-self: center;
-    // align-content: center;
-    // alignment-baseline: central;
+    // display: inline;
+}
+
+.issues {
+    float: left; 
+    display: block; 
+    width: 300px; 
+    border: none; 
+    margin: 2px; 
+    padding: 4px; 
+}
+
+.filters {
+    margin-left: 100px;
+    // margin-top: auto;
+    // max-width: 500px;
+    float: left; 
+    display: block; 
+    width: 300px; 
+    border: none; 
+    margin: 2px; 
+    padding: 4px; 
 }
 
 .empty-res {
@@ -19,4 +37,12 @@
 .super-header {
     text-align: center;
     color: rgb(255, 0, 0);
+}
+
+.main-content {
+    width: 600px;
+    border-color: green;
+    border: 10px solid #408e00;
+    border-radius: 5px;
+    display: flex;
 }

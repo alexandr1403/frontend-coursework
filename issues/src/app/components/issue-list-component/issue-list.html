@@ -5,98 +5,100 @@
 
     <app-add-form (itemAdd)="addIssue($event)" (note)="showToast($event)"></app-add-form> 
 
-    <div class="issues-list" >
+    <div class="main-content">
+        <div class="issues" >
 
-            <button (click)="showOpened()" class="issue-btn"> 
-                Открытые задачи 
-            </button>
-            <button (click)="showClosed()" class="issue-btn"> 
-                Закрытые задачи 
-            </button>
+                <button (click)="showOpened()" class="issue-btn"> 
+                    Открытые задачи 
+                </button>
+                <button (click)="showClosed()" class="issue-btn"> 
+                    Закрытые задачи 
+                </button>
 
-            <h3 style="margin-top: 20px;">Фильтры: </h3>
+            <h2>Всего задач: {{(issues.length + closed.length)}} </h2> 
             <mat-list>
-                <mat-list-item>
-                    Тег: <select [(ngModel)]="filterTag" name="type" (click)="doFilter()" class="select-form"> 
-                        @for (type of tags; track type) {
-                            <option [value]="type">{{type}}</option>
-                        }
-                    </select>
-                </mat-list-item>
-
-            <mat-list-item>
-                Приоритет: <select [(ngModel)]="filterPriority" (click)="doFilter()" name="type" class="select-form"> 
-                    @for (type of priors; track type) {
-                        <option [value]="type">{{type}}</option>
+            @if (!isFiltered) {
+                @if(isOpened) {
+                    @for(issue of issues; track $index) {
+                        <!-- Задачу можно закрыть и назначить на себя.  -->
+                        <app-issue-item [issue]="issue" 
+                            (close)="closeIssue($event)" 
+                            (assign)="assignYourself($event)" 
+                            (note)="showToast($event)">
+                        </app-issue-item> 
                     }
-                </select>
-            </mat-list-item>
 
-            <mat-list-item>
-                Создатель: <select [(ngModel)]="filterCreator" name="type" (click)="doFilter()" class="select-form"> 
-                    @for (type of users; track type) {
-                        <option [value]="type">{{type}}</option>
+                    @if(issues.length === 0) {
+                        <h3 class="empty-res">
+                            Пока нет открытых задач 
+                        </h3>
                     }
-                </select>
-            </mat-list-item>
-
-            <mat-list-item>
-            Исполнитель: <select [(ngModel)]="filterAssigner" name="type" (click)="doFilter()" class="select-form"> 
-                @for (type of users; track type) {
-                    <option [value]="type">{{type}}</option>
                 }
-            </select>
-            </mat-list-item>
-        </mat-list>
+                @else {
+                    @for(item of closed; track $index) {
+                        <app-issue-item [issue]="item"></app-issue-item> 
+                    }
 
-        <button (click)="clearFilters()">
-            Сбросить фильтры 
-        </button>
-
-        <h2>Всего задач: {{(issues.length + closed.length)}} </h2> 
-        <mat-list>
-        @if (!isFiltered) {
-            @if(isOpened) {
-                @for(issue of issues; track $index) {
-                    <!-- Задачу можно закрыть и назначить на себя.  -->
-                    <app-issue-item [issue]="issue" 
-                        (close)="closeIssue($event)" 
-                        (assign)="assignYourself($event)" 
-                        (note)="showToast($event)">
-                    </app-issue-item> 
-                }
-
-                @if(issues.length === 0) {
-                    <h3 class="empty-res">
-                        Пока нет открытых задач 
-                    </h3>
+                    @if(closed.length === 0) {
+                        <h3 class="empty-res">
+                            Пока нет закрытых задач 
+                        </h3>
+                    }
                 }
             }
             @else {
-                @for(item of closed; track $index) {
-                    <app-issue-item [issue]="item"></app-issue-item> 
-                }
+                @for(issue of filteredIssues; track $index) {
+                        <app-issue-item [issue]="issue" (close)="closeIssue($event)" (assign)="assignYourself($event)"></app-issue-item> 
+                    }
 
-                @if(closed.length === 0) {
-                    <h3 class="empty-res">
-                        Пока нет закрытых задач 
-                    </h3>
-                }
+                    @if(filteredIssues.length === 0) {
+                        <h3 class="empty-res">
+                            Нет задач с заданными параметрами 
+                        </h3>
+                    }
             }
-        }
-        @else {
-            @for(issue of filteredIssues; track $index) {
-                    <app-issue-item [issue]="issue" (close)="closeIssue($event)" (assign)="assignYourself($event)"></app-issue-item> 
-                }
+            </mat-list>
+        </div>
 
-                @if(filteredIssues.length === 0) {
-                    <h3 class="empty-res">
-                        Нет задач с заданными параметрами 
-                    </h3>
-                }
-        }
-        </mat-list>
+        <div class="filters">
+                <h3 style="margin-top: 20px;">Фильтры: </h3>
+                <mat-list>
+                    <mat-list-item>
+                        Тег: <select [(ngModel)]="filterTag" name="type" (click)="doFilter()" class="select-form"> 
+                            @for (type of tags; track type) {
+                                <option [value]="type">{{type}}</option>
+                            }
+                        </select>
+                    </mat-list-item>
 
+                    <mat-list-item>
+                        Приоритет: <select [(ngModel)]="filterPriority" (click)="doFilter()" name="type" class="select-form"> 
+                            @for (type of priors; track type) {
+                                <option [value]="type">{{type}}</option>
+                            }
+                        </select>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                        Создатель: <select [(ngModel)]="filterCreator" name="type" (click)="doFilter()" class="select-form"> 
+                            @for (type of users; track type) {
+                                <option [value]="type">{{type}}</option>
+                            }
+                        </select>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                    Исполнитель: <select [(ngModel)]="filterAssigner" name="type" (click)="doFilter()" class="select-form"> 
+                        @for (type of users; track type) {
+                            <option [value]="type">{{type}}</option>
+                        }
+                    </select>
+                    </mat-list-item>
+                </mat-list>
+                <button (click)="clearFilters()">
+                    Сбросить фильтры 
+                </button>
+        </div>
     </div>
 
     <!-- Передаём в event данные для инициализации пользователя, 
