@@ -7,13 +7,14 @@
 
     <div class="main-content">
         <div class="issues" >
-
-                <button (click)="showOpened()" class="issue-btn"> 
-                    Открытые задачи 
+            <div class="issue-btns">
+                <button matButton="" (click)="showOpened()" class="issue-btn"> 
+                    Открытые задачи
                 </button>
-                <button (click)="showClosed()" class="issue-btn"> 
+                <button matButton="" (click)="showClosed()" class="issue-btn"> 
                     Закрытые задачи 
                 </button>
+            </div>
 
             <h2>Всего задач: {{(issues.length + closed.length)}} </h2> 
             <mat-list>
@@ -61,7 +62,7 @@
         </div>
 
         <div class="filters">
-                <h3 style="margin-top: 20px;">Фильтры: </h3>
+                <h3 class="filter-header">Фильтры: </h3>
                 <mat-list>
                     <mat-list-item>
                         Тег: <select [(ngModel)]="filterTag" name="type" (click)="doFilter()" class="select-form"> 
@@ -95,7 +96,7 @@
                     </select>
                     </mat-list-item>
                 </mat-list>
-                <button (click)="clearFilters()">
+                <button style="margin-left: 100px;" (click)="clearFilters()">
                     Сбросить фильтры 
                 </button>
         </div>

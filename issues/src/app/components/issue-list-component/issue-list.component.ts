@@ -13,11 +13,12 @@ import { NotificationComponent } from "../notification-component/notification.co
 import { NotificationService } from "../../services/notify-service/notification.service";
 import { NotifyInterface, NotifyStates } from "../../interfaces/notify.interface";
 import { MatList, MatListItem } from "@angular/material/list";
+import { MatButton } from "@angular/material/button";
 
 @Component({
     selector: 'app-issue-list',
     standalone: true,
-    imports: [AddIssue, CommonModule, IssueItem, User, FormsModule, NotificationComponent, MatList, MatListItem],
+    imports: [MatButton, AddIssue, CommonModule, IssueItem, User, FormsModule, NotificationComponent, MatList, MatListItem],
     templateUrl: './issue-list.html',
     styleUrls: ['./issue-list.scss']
 })

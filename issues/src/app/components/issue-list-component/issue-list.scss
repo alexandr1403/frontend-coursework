@@ -46,3 +46,21 @@
     border-radius: 5px;
     display: flex;
 }
+
+.filter-header {
+    margin-top: 20px; 
+    align-items: center; 
+    text-align: center;
+}
+
+.issue-btns {
+    display: flex;
+}
+
+.issue-btn {
+    text-align: center;
+    display: flex;
+    // padding: 5px 30px;
+    white-space: nowrap;
+    border: 1px solid #1a290e;
+}
