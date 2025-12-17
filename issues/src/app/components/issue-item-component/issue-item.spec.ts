@@ -19,9 +19,8 @@ describe('IssueItem', () => {
         fixture.detectChanges();
     })
 
-    it('should be created (IssueItem)', () => {
+    it('should be created and initialized (IssueItem)', () => {
         expect(childComponent).toBeTruthy();
-        // childComponent.item.Title = 'some title';
         childComponent.issue = { 
             id: 0,
             creator: { id: 170000, name: '', password: '' }, 
