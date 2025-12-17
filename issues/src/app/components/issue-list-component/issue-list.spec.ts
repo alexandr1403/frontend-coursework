@@ -3,7 +3,8 @@ import { IssueList } from "./issue-list.component";
 
 describe('IssueList', () => {
     let parentComponent: IssueList;
-    let fixture: ComponentFixture<IssueList>; // этот класс имеет метод создания экземпляра для наблююдения. Нам он понадобится 
+    let fixture: ComponentFixture<IssueList>; // этот класс имеет метод создания экземпляра для наблююдения. 
+                                              // Нам он понадобится 
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
@@ -19,5 +20,33 @@ describe('IssueList', () => {
 
     it('should be created (IssueList)', () => {
         expect(parentComponent).toBeTruthy();
+    })
+
+    it('should be called updateIsues', () => {
+        const LoadShpion = spyOn(parentComponent, 'updateIssues');
+        parentComponent.ngOnInit();
+
+        expect(LoadShpion).toHaveBeenCalled();
+    })
+
+    it('should render title', () => {
+        const fixture = TestBed.createComponent(IssueList);
+        fixture.detectChanges();
+        const compiled = fixture.nativeElement as HTMLElement;
+        expect(compiled.querySelector('h1')?.textContent).toContain('I$$ue$');
+    })
+
+    it('should be equal to false', () => {
+        parentComponent.showClosed();
+
+        expect(parentComponent.isOpened).toEqual(false);
+    })
+
+    
+    it('should be applied filters', () => {
+        const LoadShpion = spyOn(parentComponent, 'applyFilters');
+        parentComponent.doFilter();
+
+        expect(LoadShpion).toHaveBeenCalled();
     })
 })
