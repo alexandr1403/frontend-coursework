@@ -1,8 +1,12 @@
 .issue-list {
-    max-width: 150px; // двигаем чтобы текст был по центру страницы 
+    max-width: 500px; // двигаем чтобы текст был по центру страницы 
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
+    // align-items: center;
+    // align-self: center;
+    // align-content: center;
+    // alignment-baseline: central;
 }
 
 .empty-res {
@@ -13,5 +17,6 @@
 }
 
 .super-header {
+    text-align: center;
     color: rgb(255, 0, 0);
 }

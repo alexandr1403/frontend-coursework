@@ -12,11 +12,12 @@ import { Observable, of, Subscription } from "rxjs";
 import { NotificationComponent } from "../notification-component/notification.component";
 import { NotificationService } from "../../services/notify-service/notification.service";
 import { NotifyInterface, NotifyStates } from "../../interfaces/notify.interface";
+import { MatList, MatListItem } from "@angular/material/list";
 
 @Component({
     selector: 'app-issue-list',
     standalone: true,
-    imports: [AddIssue, CommonModule, IssueItem, User, FormsModule, NotificationComponent],
+    imports: [AddIssue, CommonModule, IssueItem, User, FormsModule, NotificationComponent, MatList, MatListItem],
     templateUrl: './issue-list.html',
     styleUrls: ['./issue-list.scss']
 })

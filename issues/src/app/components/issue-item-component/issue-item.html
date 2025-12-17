@@ -1,9 +1,14 @@
 <div class="item-form">
-    <mat-card>
+    <mat-card class="card-content">
+        <mat-card-header class="header">{{issue.title}}</mat-card-header>
         <mat-card-content>
-            <h2>{{issue.title}}</h2>
-            <h3>Тип задачи: {{issue.type}} </h3>
-            <h3>Приоритет: {{issue.priority}} </h3> 
+            <!-- <h2>{{issue.title}}</h2> -->
+            <div style="display: flex; align-items: baseline;">
+                <h3 >Тип задачи: </h3><h2 style="margin-left: 10px; margin-bottom: 10px;"> {{issue.type}} </h2>
+            </div>
+            <div style="display: flex; align-items: baseline;">
+                <h3>Приоритет: </h3><h2 style="margin-left: 10px; margin-bottom: 10px;">{{issue.priority}} </h2> 
+            </div>
 
             <button *ngIf="issue.opened" (click)="assignYourself()" class="saved-btn"> 
                 Взять задачу 
