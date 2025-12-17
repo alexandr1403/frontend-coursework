@@ -1,7 +1,9 @@
 <div class="issue-list">
+    <app-notification></app-notification>
+
     <h1 class="super-header">I$$ue$!</h1> 
 
-    <app-add-form (itemAdd)="addIssue($event)"></app-add-form> 
+    <app-add-form (itemAdd)="addIssue($event)" (note)="showToast($event)"></app-add-form> 
 
     <div class="issues-list" >
          <button (click)="showOpened()" class="issue-btn"> 
@@ -12,25 +14,25 @@
         </button>
 
         <h3 style="margin-top: 20px;">Фильтры: </h3>
-        <select [(ngModel)]="filterTag" name="type" (click)="doFilter()" class="select-form"> 
+        Тег: <select [(ngModel)]="filterTag" name="type" (click)="doFilter()" class="select-form"> 
             @for (type of tags; track type) {
                 <option [value]="type">{{type}}</option>
             }
         </select>
 
-        <select [(ngModel)]="filterPriority" (click)="doFilter()" name="type" class="select-form"> 
+        Приоритет: <select [(ngModel)]="filterPriority" (click)="doFilter()" name="type" class="select-form"> 
             @for (type of priors; track type) {
                 <option [value]="type">{{type}}</option>
             }
         </select>
 
-        <select [(ngModel)]="filterCreator" name="type" (click)="doFilter()" class="select-form"> 
+        Создатель: <select [(ngModel)]="filterCreator" name="type" (click)="doFilter()" class="select-form"> 
             @for (type of users; track type) {
                 <option [value]="type">{{type}}</option>
             }
         </select>
 
-        <select [(ngModel)]="filterAssigner" name="type" (click)="doFilter()" class="select-form"> 
+        Исполнитель: <select [(ngModel)]="filterAssigner" name="type" (click)="doFilter()" class="select-form"> 
             @for (type of users; track type) {
                 <option [value]="type">{{type}}</option>
             }
@@ -45,7 +47,11 @@
             @if(isOpened) {
                 @for(issue of issues; track $index) {
                     <!-- Задачу можно закрыть и назначить на себя.  -->
-                    <app-issue-item [issue]="issue" (close)="closeIssue($event)" (assign)="assignYourself($event)"></app-issue-item> 
+                    <app-issue-item [issue]="issue" 
+                        (close)="closeIssue($event)" 
+                        (assign)="assignYourself($event)" 
+                        (note)="showToast($event)">
+                    </app-issue-item> 
                 }
 
                 @if(issues.length === 0) {
@@ -68,7 +74,6 @@
         }
         @else {
             @for(issue of filteredIssues; track $index) {
-                    <!-- Задачу можно закрыть и назначить на себя.  -->
                     <app-issue-item [issue]="issue" (close)="closeIssue($event)" (assign)="assignYourself($event)"></app-issue-item> 
                 }
 
@@ -84,6 +89,6 @@
     <!-- Передаём в event данные для инициализации пользователя, 
      который работает сейчас в программе.
      Изменено: общий текущий пользователь хранится в UserService. --> 
-    <app-user (reg)="addUser($event)"></app-user> 
+    <app-user (reg)="addUser($event)" (note)="showToast($event)"></app-user> 
 
 </div>

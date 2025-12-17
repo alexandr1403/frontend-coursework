@@ -9,18 +9,23 @@ import { IssueService } from "../../services/issue.service";
 import { UserService } from "../../services/user.service";
 import { FormsModule } from "@angular/forms";
 import { Observable, of, Subscription } from "rxjs";
+import { NotificationComponent } from "../notification-component/notification.component";
+import { NotificationService } from "../../services/notification.service";
+import { NotifyInterface, NotifyStates } from "../../interfaces/notify.interface";
 
 @Component({
     selector: 'app-issue-list',
     standalone: true,
-    imports: [AddIssue, CommonModule, IssueItem, User, FormsModule],
+    imports: [AddIssue, CommonModule, IssueItem, User, FormsModule, NotificationComponent],
     templateUrl: './issue-list.html',
     styleUrls: ['./issue-list.scss']
 })
 
 export class IssueList implements OnInit, OnDestroy {
 
-    constructor(private service: IssueService, private userService: UserService) { };
+    constructor(private service: IssueService, 
+        private userService: UserService, 
+        private notifyService: NotificationService) { };
 
     issues: IssueInterface[] = [];
     closed: IssueInterface[] = [];
@@ -170,8 +175,20 @@ export class IssueList implements OnInit, OnDestroy {
 
     assignYourself(id: number): void {
         console.log("текущий юзер: ", this.userService.currentUser.name, this.userService.currentUser.id);
-        this.service.assign(id, this.userService.currentUser);
+        let is = this.service.assign(id, this.userService.currentUser);
         this.updateIssues();
+        if (is) {
+            this.showToast({
+                message: "Задача взята. ",
+                state: NotifyStates.SUCCESS,
+            });
+        }
+        else {
+            this.showToast({
+                message: "Нельзя брать задачу без регистрации.",
+                state: NotifyStates.ERROR,
+            });
+        }
     }
 
     showClosed(): void {
@@ -197,5 +214,11 @@ export class IssueList implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.subs.unsubscribe();
+    }
+
+    showToast(note: NotifyInterface) {
+        this.notifyService.show(note);
+        // Скрыть через 2 секунды
+        setTimeout(() => this.notifyService.hide(), 2000);
     }
 }

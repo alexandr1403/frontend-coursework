@@ -4,6 +4,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
 import { CommentList } from "../comment-list-component/comment-list.component";
 import { CommonModule } from "@angular/common";
+import { NotifyStates } from "../../interfaces/notify.interface";
 
 @Component({
     selector: 'app-issue-item',
@@ -17,6 +18,7 @@ export class IssueItem {
     @Input() issue!: IssueInterface;
     @Output() close = new EventEmitter<number>();
     @Output() assign = new EventEmitter<number>();
+    @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
 
     constructor(private dialog: MatDialog) { } 
 
@@ -33,6 +35,10 @@ export class IssueItem {
     closeIssue(): void {
         this.issue.opened = false;
         this.close.emit(this.issue.id);
+        this.note.emit({
+            message: "Задача закрыта. ",
+            state: NotifyStates.SUCCESS,
+        });
     }
 
     assignYourself(): void {
