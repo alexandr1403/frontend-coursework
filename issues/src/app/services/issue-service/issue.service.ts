@@ -68,8 +68,5 @@ export class IssueService {
             console.log("Войдите в систему. Нельзя брать задачу без регистрации. "); 
             return false;
         }
-
-        // console.log(item?.assigner);
-        // this.saveIssues(issues);
     }
 }

@@ -14,7 +14,8 @@ import { NotifyStates } from "../../interfaces/notify.interface";
 })
 
 /**
- * Код ошибки 5 - неверный пароль. 
+ * Код ошибки 5 - неверный пароль,
+ * -2 - не введённый пароль. 
  */
 export class User {
     /**

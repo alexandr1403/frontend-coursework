@@ -23,10 +23,10 @@ describe('IssueList', () => {
     })
 
     it('should be called updateIsues', () => {
-        const LoadShpion = spyOn(parentComponent, 'updateIssues');
+        const updateShpion = spyOn(parentComponent, 'updateIssues');
         parentComponent.ngOnInit();
 
-        expect(LoadShpion).toHaveBeenCalled();
+        expect(updateShpion).toHaveBeenCalled();
     })
 
     it('should render title', () => {
@@ -44,9 +44,9 @@ describe('IssueList', () => {
 
     
     it('should be applied filters', () => {
-        const LoadShpion = spyOn(parentComponent, 'applyFilters');
+        const applyShpion = spyOn(parentComponent, 'applyFilters');
         parentComponent.doFilter();
 
-        expect(LoadShpion).toHaveBeenCalled();
+        expect(applyShpion).toHaveBeenCalled();
     })
 })

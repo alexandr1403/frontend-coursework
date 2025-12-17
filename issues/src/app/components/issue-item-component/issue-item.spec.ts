@@ -8,7 +8,6 @@ describe('IssueItem', () => {
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
-        //   declarations: [ MovieItem ]
         providers: []
         }).compileComponents();
     })

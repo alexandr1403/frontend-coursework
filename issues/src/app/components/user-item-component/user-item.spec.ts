@@ -20,4 +20,10 @@ describe('UserItem', () => {
     it('should be created (UserItem)', () => {
         expect(childComponent).toBeTruthy();
     })
+
+    it('should start register', () => {
+        childComponent.startReg();
+
+        expect(childComponent.isRegister).toEqual(true);
+    })
 })
