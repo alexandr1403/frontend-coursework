@@ -129,17 +129,17 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     filterByCreator(filterCreator: string) {
-        this.filteredIssues = this.filteredIssues.filter(item => {
-            if (item.creator != undefined)
-                item.creator.name === filterCreator
-        });
+        console.log("По создателю");
+        this.filteredIssues = this.filteredIssues.filter(item => 
+                item.creator.name.localeCompare(filterCreator) === 0
+        );
     }
 
     filterByAssigner(filterAssigner: string) {
-        this.filteredIssues = this.filteredIssues.filter(item => {
-            if (item.assigner != undefined)
-                item.assigner.name === filterAssigner;
-        })
+        console.log("По исполнителю");
+        this.filteredIssues = this.filteredIssues.filter(item => 
+                item.assigner.name.localeCompare(filterAssigner) === 0
+        );
     }
 
     cancelFilters(): void {
@@ -157,6 +157,10 @@ export class IssueList implements OnInit, OnDestroy {
         this.updateIssues();
 
         console.log(this.issues);
+    }
+
+    addUser(us: { id: number, name: string, password: string }): void {
+        this.users.push(us.name);
     }
 
     closeIssue(id: number): void {
