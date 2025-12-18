@@ -10,7 +10,7 @@ import { EditIssue } from "../edit-issue-component/edit-issue.component";
 @Component({
     selector: 'app-issue-item',
     standalone: true,
-    imports: [MatCardModule, CommonModule, EditIssue],
+    imports: [MatCardModule, CommonModule],
     templateUrl: './issue-item.html',
     styleUrls: ['./issue-item.scss']
 })
@@ -35,7 +35,8 @@ export class IssueItem {
     @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
     @Output() delete = new EventEmitter<number>();
     @Output() reopen = new EventEmitter<number>();
-    @Output() update = new EventEmitter<{ id: number, updates: Partial<IssueInterface> }>();
+    // @Output() update = new EventEmitter<{ id: number, updates: Partial<IssueInterface> }>();
+    @Output() update = new EventEmitter();
 
     constructor(private dialog: MatDialog) { };
 
@@ -73,15 +74,8 @@ export class IssueItem {
 
     startEdit(): void {
         this.isEdditing = true;
-    }
-
-    updateIssue(id: number, updates: Partial<IssueInterface>): void {
-        this.update.emit({
-            id: id,
-            updates: updates,
-        })
-        setTimeout(() => this.isEdditing = false, 1000);
-        // this.isEdditing = false;
-        // this.issueService.updateIssue(id, updates);
+        const dialogRef = this.dialog.open(EditIssue, { data: { issue: this.issue } });
+        
+        dialogRef.afterClosed().subscribe(() => this.update.emit());
     }
 }

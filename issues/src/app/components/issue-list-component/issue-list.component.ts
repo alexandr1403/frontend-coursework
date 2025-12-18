@@ -16,6 +16,8 @@ import { MatList, MatListItem } from "@angular/material/list";
 import { MatButton } from "@angular/material/button";
 import { CommentService } from "../../services/comment-service/comment.service";
 import { WhatUserDone } from "../../interfaces/activity.interface";
+import { EditService } from "../../services/edit-issue.service";
+import { L } from "@angular/cdk/keycodes";
 
 @Component({
     selector: 'app-issue-list',
@@ -30,7 +32,8 @@ export class IssueList implements OnInit, OnDestroy {
     constructor(private service: IssueService, 
         private userService: UserService, 
         private notifyService: NotificationService,
-        private commentService: CommentService) { };
+        private commentService: CommentService,
+        private editService: EditService) { };
 
     issues: IssueInterface[] = [];
     closed: IssueInterface[] = [];
@@ -46,6 +49,7 @@ export class IssueList implements OnInit, OnDestroy {
     tags = Object.values(IssueType);
     priors = Object.values(IssuePriority);
     subs: Subscription = new Subscription();
+    subsEdit: Subscription = new Subscription();
 
     isFiltered: boolean = false; // выводим отфильтрованные? 
 
@@ -248,10 +252,12 @@ export class IssueList implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.updateIssues();
         this.users = this.userService.getUsers();
+        this.updateOneIssue();
     }
 
     ngOnDestroy(): void {
         this.subs.unsubscribe();
+        this.subsEdit.unsubscribe();
     }
 
     showToast(note: NotifyInterface) {
@@ -312,8 +318,11 @@ export class IssueList implements OnInit, OnDestroy {
         }  
     }
 
-    updateOneIssue(id: number, updates: Partial<IssueInterface>): void {
-        this.service.updateIssue(id, updates);
-        this.updateIssues();
+    updateOneIssue(): void {
+        this.subsEdit = this.editService.update().subscribe(({ id, updates}) => {
+            this.service.updateIssue(id, updates);
+            this.updateIssues();
+        });
+        console.log("Я был вызван!");
     }
 }

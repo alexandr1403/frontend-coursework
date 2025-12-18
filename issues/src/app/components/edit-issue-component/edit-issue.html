@@ -1,4 +1,4 @@
-<div *ngIf="isEdditing">
+<!-- <div *ngIf="isEdditing">
     <div class="add-form">
                 <input [(ngModel)]="editData.title" name="first" type="text" placeholder="Название задачи" class="form-input">
                 <input [(ngModel)]="editData.content" name="second" type="text" placeholder="Что нужно сделать? " class="form-input"> 
@@ -24,4 +24,36 @@
             <button (click)="cancelEdit()" class="cancel-btn"> 
                 Отменить 
             </button>
+</div> -->
+
+<div *ngIf="isEdditing" class="dialog">
+    <h2 mat-dialog-title class="title"> {{ data.issue.title }} </h2>
+   
+    <mat-dialog-actions class="content"> 
+
+        <input [(ngModel)]="editData.title" name="first" type="text" placeholder="Название задачи" class="form-input">
+        <input [(ngModel)]="editData.content" name="second" type="text" placeholder="Что нужно сделать? " class="form-input"> 
+
+        <h4 class="txt-form">Тип задачи: </h4> <select [(ngModel)]="editData.type" name="type" class="select-form"> 
+                @for (type of types; track type) {
+                    <option [value]="type">{{type}}</option>
+                        }
+        </select>
+
+        <h4 class="txt-form">Приоритет: </h4> <select [(ngModel)]="editData.priority" name="priority" class="select-form">
+                @for (priority of priors; track priority) {
+                    <option [value]="priority">{{priority}}</option>
+                }
+        </select>
+
+        <button (click)="saveEdit()" class="save-btn">
+            Сохранить 
+        </button>
+
+        <button (click)="cancelEdit()" class="cancel-btn"> 
+            Отменить 
+        </button>
+
+    </mat-dialog-actions>
+
 </div>

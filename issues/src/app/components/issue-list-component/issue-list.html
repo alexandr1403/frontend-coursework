@@ -28,7 +28,7 @@
                                 (assign)="assignYourself($event)" 
                                 (note)="showToast($event)"
                                 (delete)="deleteIssue($event)"
-                                (update)="updateOneIssue($event.id, $event.updates)">
+                                (update)="updateOneIssue()">
                             </app-issue-item> 
                         }
 
@@ -62,7 +62,7 @@
                                 (note)="showToast($event)"
                                 (delete)="deleteIssue($event)"
                                 (reopen)="reOpen($event)"
-                                (update)="updateOneIssue($event.id, $event.updates)">
+                                (update)="updateOneIssue()">
                             </app-issue-item> 
                         }
 
