@@ -32,21 +32,13 @@ export class CommentService {
 
     addEvent(key: number, whatDo: WhatUserDone, userName: string): void {
         const history = this.getHistory(key);
-        let value = '';
-        switch(whatDo) {
-            case WhatUserDone.ASSIGN: {
-                value = "Пользователь " + userName + " " + WhatUserDone.ASSIGN;
-                break;
-            }
-            case WhatUserDone.CLOSE: {
-                value = "Пользователь " + userName + " " + WhatUserDone.CLOSE;
-                break;
-            }
-        }
+        const activity: string = (whatDo === WhatUserDone.ASSIGN)? WhatUserDone.ASSIGN : WhatUserDone.CLOSE; 
+        const value = "Пользователь " + userName + " " + activity;
 
         if (userName !== '') {
             history.push(value);
         }
+        
         localStorage.setItem(key.toString(), JSON.stringify(history));
     }
 }
