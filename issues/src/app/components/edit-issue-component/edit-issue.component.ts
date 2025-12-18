@@ -45,12 +45,12 @@ export class EditIssue implements OnInit {
         if (this.editData.title.trim())
         {
             this.dialogRef.close({
-            id: this.data.issue.id,
-            title: this.editData.title.trim(),
-            content: this.editData.content,
-            type: this.editData.type,
-            priority: this.editData.priority,
-        });
+                id: this.data.issue.id,
+                title: this.editData.title.trim(),
+                content: this.editData.content,
+                type: this.editData.type,
+                priority: this.editData.priority,
+            });
         }
         else {
             this.dialogRef.close({
@@ -67,7 +67,7 @@ export class EditIssue implements OnInit {
     cancelEdit(): void {
         this.isEdditing = false;
         this.dialogRef.close({
-            id: 0,
+            id: -1,
             title: '',
             content: '',
             type: this.editData.type,
