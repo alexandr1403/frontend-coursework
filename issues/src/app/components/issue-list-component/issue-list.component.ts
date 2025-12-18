@@ -267,18 +267,6 @@ export class IssueList implements OnInit, OnDestroy {
         setTimeout(() => this.notifyService.hide(), 2000);
     }
 
-    /**
-     * Очистка бардака в localstorage
-     */
-    cleaner(): void {
-        this.userService.cleaner();
-        console.log("Хранилище очищено. ");
-
-        this.issues = [];
-        this.closed = [];
-        this.filteredIssues = [];
-    }
-
     deleteIssue(id: number): void {
         let is = this.service.delete(id, this.userService.currentUser.name);
         console.log(is);
@@ -332,5 +320,17 @@ export class IssueList implements OnInit, OnDestroy {
         }
         this.updateIssues();
         this.applyFilters();
+    }
+
+    /**
+     * Очистка бардака в localstorage
+     */
+    cleaner(): void {
+        this.userService.cleaner();
+        console.log("Хранилище очищено. ");
+
+        this.issues = [];
+        this.closed = [];
+        this.filteredIssues = [];
     }
 }

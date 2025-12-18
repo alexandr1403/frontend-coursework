@@ -27,7 +27,7 @@ describe('UserService', () => {
     const expectedValue: string = 'alex';
 
     it('should be equal to key', () => {
-        const key = service.setKey(mockData.id, mockData.name);
+        const key = service.setKey(mockData.name);
 
         expect(key).toEqual(expectedValue);
     })

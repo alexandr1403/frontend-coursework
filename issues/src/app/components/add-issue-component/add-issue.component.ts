@@ -70,11 +70,6 @@ export class AddIssue {
                 assigner: this.assigner,
             });
 
-            // this.note.emit({
-            //     message: "Задача добавлена.",
-            //     state: NotifyStates.SUCCESS,
-            // })
-            
             this.isVisibleAdding = false;
         }
 

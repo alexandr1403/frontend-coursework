@@ -12,14 +12,14 @@ export interface IssueInterface {
 }
 
 export enum IssueType {
-    BUG = "bug",
-    FEATURE = "feature",
-    DOC = "documentation"
+    BUG = "баг",
+    FEATURE = "новая функция",
+    DOC = "документация"
 }
 
 export enum IssuePriority {
-    LOW = "low",
-    MEDIUM = "medium",
-    HIGH = "high",
+    LOW = "низкий",
+    MEDIUM = "средний",
+    HIGH = "высокий",
     CRITICAL = "Срочно!"
 }

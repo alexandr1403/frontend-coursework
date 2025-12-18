@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Inject, OnInit, Output } from "@angular/core";
 import { IssueInterface, IssuePriority, IssueType } from "../../interfaces/issue.interface";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions } from "@angular/material/dialog";
 
 @Component({
     selector: 'app-edit-issue',

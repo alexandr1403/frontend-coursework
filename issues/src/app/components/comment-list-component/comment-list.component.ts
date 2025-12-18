@@ -33,7 +33,6 @@ export class CommentList implements OnInit {
     }
 
     commentIssue(): void {
-        // const time = new Date().toISOString();
         const date = new Date();
         const day = date.toLocaleDateString();
         const time = date.toLocaleTimeString();

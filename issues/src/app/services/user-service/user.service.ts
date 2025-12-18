@@ -17,8 +17,7 @@ export class UserService {
         this.currentUser.password = user.password;
     }
 
-    setKey(id: number, name: string): string {
-        // const key = id.toString() + '|' + name;
+    setKey(name: string): string {
         const key = name;
         return key;
     }
@@ -38,7 +37,7 @@ export class UserService {
     }
 
     registerUser(user: UserInterface): boolean {
-        const key = this.setKey(user.id, user.name);
+        const key = this.setKey(user.name);
         const pwd = this.getUser(key)?.password;
         if (pwd == null) {
             this.saveUser(key, user);
@@ -66,7 +65,7 @@ export class UserService {
     }
 
     logIn(user: UserInterface): number {
-        const key = this.setKey(user.id, user.name);
+        const key = this.setKey(user.name);
         const pwd = this.getUser(key)?.password;
         const id = this.getUser(key)?.id;
 
