@@ -31,6 +31,10 @@ export class CommentService {
     }
 
     addEvent(key: number, whatDo: WhatUserDone, userName: string): void {
+        const date = new Date();
+        const day = date.toLocaleDateString();
+        const time = date.toLocaleTimeString();
+
         const history = this.getHistory(key);
         let activity = '';
         if (whatDo == WhatUserDone.REOPEN) 
@@ -38,7 +42,7 @@ export class CommentService {
         else 
             activity = (whatDo === WhatUserDone.ASSIGN)? WhatUserDone.ASSIGN : WhatUserDone.CLOSE; 
 
-        const value = "Пользователь " + userName + " " + activity;
+        const value = day + " в " + time + " Пользователь " + userName + " " + activity;
 
         if (userName !== '') {
             history.push(value);

@@ -167,9 +167,21 @@ export class IssueList implements OnInit, OnDestroy {
         }
 
         console.log("Креэйтор: ", adding.creator.name);
-        this.service.addIssue(adding);
-        this.updateIssues();
-        this.clearFilters();
+        let is = this.service.addIssue(adding);
+        if (is) {
+            this.showToast({
+                message: "Задача добавлена.",
+                state: NotifyStates.SUCCESS,
+            });
+            this.updateIssues();
+            this.clearFilters();
+        }
+        else {
+            this.showToast({
+                message: "Такая задача уже добавлена.",
+                state: NotifyStates.INFO,
+            });
+        }
 
         console.log(this.issues);
     }
@@ -186,9 +198,16 @@ export class IssueList implements OnInit, OnDestroy {
             });
             return;
         }
-        this.service.closeIssue(id);
-        this.commentService.addEvent(id, WhatUserDone.CLOSE, this.userService.currentUser.name);
-        this.updateIssues();
+        else {
+            this.showToast({
+                message: "Задача закрыта. ",
+                state: NotifyStates.SUCCESS,
+            });
+
+            this.service.closeIssue(id);
+            this.commentService.addEvent(id, WhatUserDone.CLOSE, this.userService.currentUser.name);
+            this.updateIssues();
+        }
     }
 
     assignYourself(id: number): void {
@@ -283,6 +302,10 @@ export class IssueList implements OnInit, OnDestroy {
             return;
         }
         else {
+            this.showToast({
+                message: "Задача открыта",
+                state: NotifyStates.SUCCESS,
+            });
             this.service.reOpen(id);
             this.commentService.addEvent(id, WhatUserDone.REOPEN, this.userService.currentUser.name);
             this.updateIssues();

@@ -48,12 +48,8 @@ export class IssueItem {
     }
 
     closeIssue(): void {
-        this.issue.opened = false;
+        // this.issue.opened = false;
         this.close.emit(this.issue.id);
-        this.note.emit({
-            message: "Задача закрыта. ",
-            state: NotifyStates.SUCCESS,
-        });
     }
 
     assignYourself(): void {
@@ -69,9 +65,5 @@ export class IssueItem {
     reOpenIssue(): void {
         // this.issue.opened = true;
         this.reopen.emit(this.issue.id);
-        // this.note.emit({
-        //     message: "Задача открыта. ",
-        //     state: NotifyStates.SUCCESS,
-        // });
     }
 }

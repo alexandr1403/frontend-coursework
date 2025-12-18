@@ -21,14 +21,22 @@ export class IssueService {
         localStorage.setItem(this.KEY, JSON.stringify(issues));
     }
 
-    addIssue(adding: Omit<IssueInterface, 'id'>): void {
+    addIssue(adding: Omit<IssueInterface, 'id'>): boolean {
         const issues = this.getIssues();
+        const closed = this.getClosed();
+        const itOpen = issues.find(item => item.title.localeCompare(adding.title) === 0);
+        const itClose = closed.find(item => item.title.localeCompare(adding.title) === 0);
+        if (itOpen || itClose) {
+            console.log("Такая задача уже есть.");
+            return false;
+        }
         issues.push({
             ...adding,
             id: Date.now()
         });
 
         this.saveIssues(issues);
+        return true;
     }
 
     getClosed(): IssueInterface[] {
