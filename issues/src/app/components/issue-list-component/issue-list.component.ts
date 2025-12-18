@@ -342,5 +342,6 @@ export class IssueList implements OnInit, OnDestroy {
         this.issues = [];
         this.closed = [];
         this.filteredIssues = [];
+        this.users = [];
     }
 }

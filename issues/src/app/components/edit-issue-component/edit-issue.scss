@@ -42,8 +42,6 @@
 
 .title {
     text-align: center;
-    // background: rgb(214, 223, 255);
-    // min-height: 80px;
 }
 
 .add-form {
@@ -58,8 +56,15 @@
     margin-left: 10px;
 }
 
-.form-input {
+.form-input-content {
     margin-left: 80px;
+    min-width: 250px;
+    // max-height: 10px;
+}
+
+.form-input-title {
+    margin-left: 80px;
+    min-width: 100px;
     // max-height: 10px;
 }
 
@@ -69,4 +74,8 @@
 
 .field {
     margin-left: 80px;
+}
+
+.dialog {
+    background: rgb(214, 223, 255);
 }
