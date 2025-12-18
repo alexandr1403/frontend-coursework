@@ -35,8 +35,7 @@ export class IssueItem {
     @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
     @Output() delete = new EventEmitter<number>();
     @Output() reopen = new EventEmitter<number>();
-    // @Output() update = new EventEmitter<{ id: number, updates: Partial<IssueInterface> }>();
-    @Output() update = new EventEmitter();
+    @Output() update = new EventEmitter<{ id: number, updates: Partial<IssueInterface> }>();
 
     constructor(private dialog: MatDialog) { };
 
@@ -75,7 +74,15 @@ export class IssueItem {
     startEdit(): void {
         this.isEdditing = true;
         const dialogRef = this.dialog.open(EditIssue, { data: { issue: this.issue } });
-        
-        dialogRef.afterClosed().subscribe(() => this.update.emit());
+
+        dialogRef.afterClosed().subscribe((result) => this.update.emit({
+            id: result.id,
+            updates: {
+                title: result.title,
+                content: result.content,
+                type: result.type,
+                priority: result.priority,
+            }
+        }));
     }
 }

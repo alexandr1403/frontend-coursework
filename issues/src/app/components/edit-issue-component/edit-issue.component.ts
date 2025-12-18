@@ -3,7 +3,6 @@ import { IssueInterface, IssuePriority, IssueType } from "../../interfaces/issue
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
-import { EditService } from "../../services/edit-issue.service";
 
 @Component({
     selector: 'app-edit-issue',
@@ -17,8 +16,7 @@ export class EditIssue implements OnInit {
     @Output() update = new EventEmitter<{ id: number, updates: Partial<IssueInterface> }>();
 
     constructor(public dialogRef: MatDialogRef<EditIssue>, 
-        @Inject(MAT_DIALOG_DATA) public data: { issue: IssueInterface },
-            private service: EditService) { };
+        @Inject(MAT_DIALOG_DATA) public data: { issue: IssueInterface }) { };
     
     editData = {
         title: '',
@@ -46,19 +44,34 @@ export class EditIssue implements OnInit {
     saveEdit(): void {
         if (this.editData.title.trim())
         {
-            this.service.serviceInit(this.data.issue.id, {
-                title: this.editData.title.trim(),
-                content: this.editData.content,
+            this.dialogRef.close({
+            id: this.data.issue.id,
+            title: this.editData.title.trim(),
+            content: this.editData.content,
+            type: this.editData.type,
+            priority: this.editData.priority,
+        });
+        }
+        else {
+            this.dialogRef.close({
+                id: 0,
+                title: '',
+                content: '',
                 type: this.editData.type,
                 priority: this.editData.priority,
             });
         }
         this.isEdditing = false;
-        this.dialogRef.close(this.data.issue);
     }
 
     cancelEdit(): void {
         this.isEdditing = false;
-        this.dialogRef.close(this.data.issue);
+        this.dialogRef.close({
+            id: 0,
+            title: '',
+            content: '',
+            type: this.editData.type,
+            priority: this.editData.priority,
+        });
     }
 }
