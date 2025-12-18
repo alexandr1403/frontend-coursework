@@ -6,6 +6,7 @@ import { CommentList } from "../comment-list-component/comment-list.component";
 import { CommonModule } from "@angular/common";
 import { NotifyStates } from "../../interfaces/notify.interface";
 import { EditIssue } from "../edit-issue-component/edit-issue.component";
+import { UserService } from "../../services/user-service/user.service";
 
 @Component({
     selector: 'app-issue-item',
@@ -37,7 +38,7 @@ export class IssueItem {
     @Output() reopen = new EventEmitter<number>();
     @Output() update = new EventEmitter<{ id: number, updates: Partial<IssueInterface> }>();
 
-    constructor(private dialog: MatDialog) { };
+    constructor(private dialog: MatDialog, private service: UserService) { };
 
     isEdditing: boolean = false;
 
@@ -72,17 +73,26 @@ export class IssueItem {
     }
 
     startEdit(): void {
+        if (!this.service.currentUser.name.trim()) {
+            // "настучать" родителю, что пользователь бедокурит 
+            this.note.emit({
+                message: "Работать с задачей могут только зарегистрированные пользователи.",
+                state: NotifyStates.ERROR,
+            });
+            return;
+        }
         this.isEdditing = true;
         const dialogRef = this.dialog.open(EditIssue, { data: { issue: this.issue } });
 
         dialogRef.afterClosed().subscribe((result) => this.update.emit({
-            id: result.id,
-            updates: {
-                title: result.title,
-                content: result.content,
-                type: result.type,
-                priority: result.priority,
-            }
-        }));
+                    id: result.id,
+                    updates: {
+                        title: result.title,
+                        content: result.content,
+                        type: result.type,
+                        priority: result.priority,
+                    }
+                })
+            );
     }
 }

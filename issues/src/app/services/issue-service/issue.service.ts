@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { IssueInterface } from "../../interfaces/issue.interface";
 import { UserInterface } from "../../interfaces/user.interface";
-import { DeclareFunctionStmt } from "@angular/compiler";
 
 @Injectable({
     providedIn: 'root',
@@ -131,11 +130,19 @@ export class IssueService {
         this.setClosed(closed);
     }
 
-    updateIssue(id: number, updates: Partial<IssueInterface>): void {
+    updateIssue(id: number, updates: Partial<IssueInterface>): boolean {
         const issues = this.getIssues();
         const index = issues.findIndex(item => item.id === id);
-        // console.log(items, index);
-        // console.log(updates.name);
+        const updateTitle = updates.title;
+        let sameIssue = undefined;
+        if (updateTitle)
+            sameIssue = issues.find(item => item.title.trim().localeCompare(updateTitle.trim()) === 0);
+
+        console.log("update title", updateTitle);
+        if (sameIssue !== undefined) {
+            console.log("Такая задача уже есть.");
+            return false;
+        }
 
         if (index !== -1)
         {
@@ -143,6 +150,8 @@ export class IssueService {
             console.log('updated title: ', updates.title);
             console.log('name of edit issue: ', issues[index].title);
             this.saveIssues(issues);
+            return true;
         }
+        return false;
     }
 }

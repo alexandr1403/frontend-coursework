@@ -313,9 +313,16 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     updateOneIssue(id: number, updates: Partial<IssueInterface>): void {
-        this.service.updateIssue(id, updates);
-        this.updateIssues();
-
         console.log("Я был вызван!");
+
+        let is = this.service.updateIssue(id, updates);
+        if (!is) {
+            this.showToast({
+                message: "Такая задача уже есть.",
+                state: NotifyStates.ERROR,
+            });
+            return;
+        }
+        this.updateIssues();
     }
 }
