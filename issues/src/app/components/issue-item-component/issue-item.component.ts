@@ -5,11 +5,12 @@ import { MatDialog } from "@angular/material/dialog";
 import { CommentList } from "../comment-list-component/comment-list.component";
 import { CommonModule } from "@angular/common";
 import { NotifyStates } from "../../interfaces/notify.interface";
+import { EditIssue } from "../edit-issue-component/edit-issue.component";
 
 @Component({
     selector: 'app-issue-item',
     standalone: true,
-    imports: [MatCardModule, CommonModule],
+    imports: [MatCardModule, CommonModule, EditIssue],
     templateUrl: './issue-item.html',
     styleUrls: ['./issue-item.scss']
 })
@@ -34,8 +35,11 @@ export class IssueItem {
     @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
     @Output() delete = new EventEmitter<number>();
     @Output() reopen = new EventEmitter<number>();
+    @Output() update = new EventEmitter<{ id: number, updates: Partial<IssueInterface> }>();
 
-    constructor(private dialog: MatDialog) { } 
+    constructor(private dialog: MatDialog) { };
+
+    isEdditing: boolean = false;
 
     openIssueDialog(): void {
         this.dialog.open(CommentList, { data: { issue: this.issue } });
@@ -65,5 +69,19 @@ export class IssueItem {
     reOpenIssue(): void {
         // this.issue.opened = true;
         this.reopen.emit(this.issue.id);
+    }
+
+    startEdit(): void {
+        this.isEdditing = true;
+    }
+
+    updateIssue(id: number, updates: Partial<IssueInterface>): void {
+        this.update.emit({
+            id: id,
+            updates: updates,
+        })
+        setTimeout(() => this.isEdditing = false, 1000);
+        // this.isEdditing = false;
+        // this.issueService.updateIssue(id, updates);
     }
 }

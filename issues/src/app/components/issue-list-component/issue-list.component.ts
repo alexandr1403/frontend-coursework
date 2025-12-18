@@ -311,4 +311,9 @@ export class IssueList implements OnInit, OnDestroy {
             this.updateIssues();
         }  
     }
+
+    updateOneIssue(id: number, updates: Partial<IssueInterface>): void {
+        this.service.updateIssue(id, updates);
+        this.updateIssues();
+    }
 }

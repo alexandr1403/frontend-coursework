@@ -30,8 +30,14 @@
                 Открыть задачу 
             </button>
 
+            <button *ngIf="issue.opened" (click)="startEdit()" class="reopen-btn">
+                Редактировать 
+            </button>
+
         </mat-card-content>
 
     </mat-card>
+
+    <app-edit-issue *ngIf="isEdditing" [issue]="this.issue" (update)="updateIssue($event.id, $event.updates)"></app-edit-issue>
 
 </div>

@@ -130,4 +130,19 @@ export class IssueService {
         closed = closed.filter(item => item.id !== id);
         this.setClosed(closed);
     }
+
+    updateIssue(id: number, updates: Partial<IssueInterface>): void {
+        const issues = this.getIssues();
+        const index = issues.findIndex(item => item.id === id);
+        // console.log(items, index);
+        // console.log(updates.name);
+
+        if (index !== -1)
+        {
+            issues[index] = { ...issues[index], ...updates };
+            console.log('updated title: ', updates.title);
+            console.log('name of edit issue: ', issues[index].title);
+            this.saveIssues(issues);
+        }
+    }
 }
