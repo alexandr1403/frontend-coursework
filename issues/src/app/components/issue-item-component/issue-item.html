@@ -30,6 +30,10 @@
                 Открыть задачу 
             </button>
 
+            <button *ngIf="issue.opened" (click)="startEdit()" class="edit-btn">
+                Редактировать 
+            </button>
+
         </mat-card-content>
 
     </mat-card>

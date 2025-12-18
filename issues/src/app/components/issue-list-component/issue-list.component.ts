@@ -160,7 +160,14 @@ export class IssueList implements OnInit, OnDestroy {
         );
     }
 
-    addIssue(newIssue: { creator: UserInterface, title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
+    addIssue(newIssue: { 
+        creator: UserInterface, 
+        title: string, 
+        content?: string, 
+        type: IssueType, 
+        priority: IssuePriority, 
+        assigner: UserInterface }): void {
+
         const adding: Omit<IssueInterface, 'id'> = {
             ...newIssue,
             opened: true
@@ -310,5 +317,20 @@ export class IssueList implements OnInit, OnDestroy {
             this.commentService.addEvent(id, WhatUserDone.REOPEN, this.userService.currentUser.name);
             this.updateIssues();
         }  
+    }
+
+    updateOneIssue(id: number, updates: Partial<IssueInterface>): void {
+        console.log("Я был вызван!");
+
+        let is = this.service.updateIssue(id, updates);
+        if (!is) {
+            this.showToast({
+                message: "Такая задача уже есть.",
+                state: NotifyStates.ERROR,
+            });
+            return;
+        }
+        this.updateIssues();
+        this.applyFilters();
     }
 }
