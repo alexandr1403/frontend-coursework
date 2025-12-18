@@ -5,13 +5,13 @@
     max-width: 800px;
     max-height: 30px;
     align-items: baseline;
-    // background-color: aqua;
 }
 
 .txt-form {
     margin-right: 10px;
     display: flex;
     white-space: nowrap;
+    color: rgb(255, 235, 235);
 }
 
 .main-form {
@@ -22,7 +22,7 @@
 
 .add-btn{
     padding: 8px 10px;
-    margin-right: 50px;
+    margin-left: 10px;
     background: #1f883d;
     color: rgb(255, 255, 255);
     border: 1px solid rgb(14, 14, 14);
@@ -52,4 +52,8 @@
 
 .select-form {
     cursor: pointer;
+}
+
+.modal {
+    background-color: rgb(99, 95, 95);
 }
