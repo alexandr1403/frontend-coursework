@@ -39,6 +39,7 @@ export class AddIssue {
     }
 
     addIssue(): void {
+        console.log("Я начал работу!");
         try {
             if (!this.title.trim())
                 return;
@@ -77,6 +78,7 @@ export class AddIssue {
             this.type = IssueType.BUG;
             this.priority = IssuePriority.MEDIUM;
             this.assigner = { id: 0, name: '', password: '' };
+            console.log("Я завершил работу!");
         }
     }
 
