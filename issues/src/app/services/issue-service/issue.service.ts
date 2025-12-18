@@ -74,7 +74,7 @@ export class IssueService {
     delete(id: number, currentUser: string): boolean {
         if (currentUser === '')
             return false;
-        
+
         let issues = this.getIssues();
         let closed = this.getClosed();
         const delIssue = issues.find(item => item.id === id);
@@ -106,9 +106,20 @@ export class IssueService {
             this.saveIssues(issues);
             this.setClosed(closed);
         }
-        // issues = issues.filter(item => item.id !== id);
-        // closed = closed.filter(item => item.id !== id);
-        // this.saveIssues(issues);
-        // this.setClosed(closed);
+    }
+
+    reOpen(id: number): void {
+        const issues = this.getIssues();
+        let closed = this.getClosed();
+        const item = closed.find(item => item.id === id);
+
+        if (item) {
+            item.opened = true;
+            issues.push(item);
+            this.saveIssues(issues);
+        }
+
+        closed = closed.filter(item => item.id !== id);
+        this.setClosed(closed);
     }
 }

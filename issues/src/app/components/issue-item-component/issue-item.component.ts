@@ -33,6 +33,7 @@ export class IssueItem {
     @Output() assign = new EventEmitter<number>();
     @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
     @Output() delete = new EventEmitter<number>();
+    @Output() reopen = new EventEmitter<number>();
 
     constructor(private dialog: MatDialog) { } 
 
@@ -63,5 +64,14 @@ export class IssueItem {
     deleteIssue(): void {
         this.delete.emit(this.issue.id);
         console.log("Удаление задачи... ");
+    }
+
+    reOpenIssue(): void {
+        // this.issue.opened = true;
+        this.reopen.emit(this.issue.id);
+        // this.note.emit({
+        //     message: "Задача открыта. ",
+        //     state: NotifyStates.SUCCESS,
+        // });
     }
 }

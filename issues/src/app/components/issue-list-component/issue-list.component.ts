@@ -179,6 +179,13 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     closeIssue(id: number): void {
+        if (!this.userService.currentUser.name.trim()) {
+            this.showToast({
+                message: "Войдите, прежде чем работать с задачей.",
+                state: NotifyStates.ERROR,
+            });
+            return;
+        }
         this.service.closeIssue(id);
         this.commentService.addEvent(id, WhatUserDone.CLOSE, this.userService.currentUser.name);
         this.updateIssues();
@@ -264,5 +271,21 @@ export class IssueList implements OnInit, OnDestroy {
                 state: NotifyStates.ERROR,
             });
         }
+    }
+
+    reOpen(id: number): void {
+        if (!this.userService.currentUser.name.trim()) {
+            console.log("Я зашёл сюдыа!");
+            this.showToast({
+                message: "Войдите, прежде чем работать с задачей.",
+                state: NotifyStates.ERROR,
+            });
+            return;
+        }
+        else {
+            this.service.reOpen(id);
+            this.commentService.addEvent(id, WhatUserDone.REOPEN, this.userService.currentUser.name);
+            this.updateIssues();
+        }  
     }
 }
