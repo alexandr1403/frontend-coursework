@@ -70,8 +70,34 @@
 .cancel-filters {
     margin-left: 16px; 
     margin-top: 10px;
+    padding: 2px 4px;
 }
 
 .select-form {
     cursor: pointer;
+    width: 112px;
+}
+
+.select-tag-form {
+    cursor: pointer;
+    width: 112px;
+    margin-left: 85px;
+}
+
+.select-priority-form {
+    cursor: pointer;
+    width: 112px;
+    margin-left: 26px;
+}
+
+.select-creator-form {
+    cursor: pointer;
+    width: 112px;
+    margin-left: 26px;
+}
+
+.select-assigner-form {
+    cursor: pointer;
+    width: 112px;
+    margin-left: 5px;
 }
