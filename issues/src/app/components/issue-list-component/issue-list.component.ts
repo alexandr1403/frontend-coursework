@@ -55,6 +55,14 @@ export class IssueList implements OnInit, OnDestroy {
         this.filterAssigner = null;
         
         this.isFiltered = false;
+        console.log("Фильтры сброшены.");
+    }
+
+    infoFilters(): void {
+        this.showToast({
+            message: "Фильтры сброшены.",
+            state: NotifyStates.INFO,
+        })
     }
 
     detectChanges(): Observable<any> {
@@ -149,10 +157,6 @@ export class IssueList implements OnInit, OnDestroy {
         );
     }
 
-    cancelFilters(): void {
-        this.isFiltered = false;
-    }
-
     addIssue(newIssue: { creator: UserInterface, title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
         const adding: Omit<IssueInterface, 'id'> = {
             ...newIssue,
@@ -162,6 +166,7 @@ export class IssueList implements OnInit, OnDestroy {
         console.log("Креэйтор: ", adding.creator.name);
         this.service.addIssue(adding);
         this.updateIssues();
+        this.clearFilters();
 
         console.log(this.issues);
     }
@@ -178,7 +183,7 @@ export class IssueList implements OnInit, OnDestroy {
     assignYourself(id: number): void {
         console.log("текущий юзер: ", this.userService.currentUser.name, this.userService.currentUser.id);
         let is = this.service.assign(id, this.userService.currentUser);
-        this.updateIssues();
+        this.applyFilters();
         if (is) {
             this.showToast({
                 message: "Задача взята. ",
@@ -230,7 +235,7 @@ export class IssueList implements OnInit, OnDestroy {
     cleaner(): void {
         this.userService.cleaner();
         console.log("Хранилище очищено. ");
-        
+
         this.issues = [];
         this.closed = [];
         this.filteredIssues = [];
