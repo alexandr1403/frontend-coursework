@@ -64,16 +64,16 @@ export class AddIssue {
             this.itemAdd.emit({
                 creator: this.service.currentUser,
                 title: this.title.trim(),
-                content: this.content?.trim() || '',
+                content: (this.content?.trim())? this.content.trim() : 'нет описания задачи ',
                 type: this.type,
                 priority: this.priority,
                 assigner: this.assigner,
             });
 
-            this.note.emit({
-                message: "Задача добавлена.",
-                state: NotifyStates.SUCCESS,
-            })
+            // this.note.emit({
+            //     message: "Задача добавлена.",
+            //     state: NotifyStates.SUCCESS,
+            // })
             
             this.isVisibleAdding = false;
         }

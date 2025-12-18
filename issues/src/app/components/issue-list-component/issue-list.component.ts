@@ -14,6 +14,8 @@ import { NotificationService } from "../../services/notify-service/notification.
 import { NotifyInterface, NotifyStates } from "../../interfaces/notify.interface";
 import { MatList, MatListItem } from "@angular/material/list";
 import { MatButton } from "@angular/material/button";
+import { CommentService } from "../../services/comment-service/comment.service";
+import { WhatUserDone } from "../../interfaces/activity.interface";
 
 @Component({
     selector: 'app-issue-list',
@@ -27,7 +29,8 @@ export class IssueList implements OnInit, OnDestroy {
 
     constructor(private service: IssueService, 
         private userService: UserService, 
-        private notifyService: NotificationService) { };
+        private notifyService: NotificationService,
+        private commentService: CommentService) { };
 
     issues: IssueInterface[] = [];
     closed: IssueInterface[] = [];
@@ -164,9 +167,21 @@ export class IssueList implements OnInit, OnDestroy {
         }
 
         console.log("Креэйтор: ", adding.creator.name);
-        this.service.addIssue(adding);
-        this.updateIssues();
-        this.clearFilters();
+        let is = this.service.addIssue(adding);
+        if (is) {
+            this.showToast({
+                message: "Задача добавлена.",
+                state: NotifyStates.SUCCESS,
+            });
+            this.updateIssues();
+            this.clearFilters();
+        }
+        else {
+            this.showToast({
+                message: "Такая задача уже добавлена.",
+                state: NotifyStates.INFO,
+            });
+        }
 
         console.log(this.issues);
     }
@@ -176,8 +191,23 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     closeIssue(id: number): void {
-        this.service.closeIssue(id);
-        this.updateIssues();
+        if (!this.userService.currentUser.name.trim()) {
+            this.showToast({
+                message: "Войдите, прежде чем работать с задачей.",
+                state: NotifyStates.ERROR,
+            });
+            return;
+        }
+        else {
+            this.showToast({
+                message: "Задача закрыта. ",
+                state: NotifyStates.SUCCESS,
+            });
+
+            this.service.closeIssue(id);
+            this.commentService.addEvent(id, WhatUserDone.CLOSE, this.userService.currentUser.name);
+            this.updateIssues();
+        }
     }
 
     assignYourself(id: number): void {
@@ -189,6 +219,7 @@ export class IssueList implements OnInit, OnDestroy {
                 message: "Задача взята. ",
                 state: NotifyStates.SUCCESS,
             });
+            this.commentService.addEvent(id, WhatUserDone.ASSIGN, this.userService.currentUser.name);
         }
         else {
             this.showToast({
@@ -200,12 +231,12 @@ export class IssueList implements OnInit, OnDestroy {
 
     showClosed(): void {
         this.isOpened = false;
-        this.isFiltered = false;
+        this.clearFilters();
     }
 
     showOpened(): void {
         this.isOpened = true;
-        this.isFiltered = false;
+        this.clearFilters();
     }
 
     updateIssues(): void {
@@ -239,5 +270,45 @@ export class IssueList implements OnInit, OnDestroy {
         this.issues = [];
         this.closed = [];
         this.filteredIssues = [];
+    }
+
+    deleteIssue(id: number): void {
+        let is = this.service.delete(id, this.userService.currentUser.name);
+        console.log(is);
+
+        if (is) {
+            this.showToast({
+                message: "Задача удалена",
+                state: NotifyStates.INFO,
+            });
+            this.updateIssues();
+            this.clearFilters();
+        }
+        else {
+            this.showToast({
+                message: "Удалять задачу может только её исполнитель.",
+                state: NotifyStates.ERROR,
+            });
+        }
+    }
+
+    reOpen(id: number): void {
+        if (!this.userService.currentUser.name.trim()) {
+            console.log("Я зашёл сюдыа!");
+            this.showToast({
+                message: "Войдите, прежде чем работать с задачей.",
+                state: NotifyStates.ERROR,
+            });
+            return;
+        }
+        else {
+            this.showToast({
+                message: "Задача открыта",
+                state: NotifyStates.SUCCESS,
+            });
+            this.service.reOpen(id);
+            this.commentService.addEvent(id, WhatUserDone.REOPEN, this.userService.currentUser.name);
+            this.updateIssues();
+        }  
     }
 }

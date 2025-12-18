@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { CommentService } from './comment.service';
 
 interface TestValue {
-    date: string, assignerName: string, comment: string,
+    date: string, time: string, assignerName: string, comment: string,
 }
 
 describe('UserService', () => {
@@ -20,14 +20,15 @@ describe('UserService', () => {
     })
 
     const mockData: TestValue = {
-        date: "today", 
+        date: "today",
+        time: "14:46:47",
         assignerName: "alex", 
         comment: "some comment",
     };
-    const expectedValue: string = "В today пользователь alex оставил комментарий: \"some comment\"";
+    const expectedValue: string = "today в 14:46:47 пользователь alex оставил комментарий: \"some comment\"";
 
     it('should be equal to value', () => {
-        const key = service.setValue(mockData.date, mockData.assignerName, mockData.comment);
+        const key = service.setValue(mockData.date, mockData.time, mockData.assignerName, mockData.comment);
 
         expect(key).toEqual(expectedValue);
     })
@@ -35,7 +36,7 @@ describe('UserService', () => {
     it('should be setting value', () => {
         const setShpion = spyOn(service, 'setValue');
 
-        service.saveHistory(0, mockData.date, mockData.assignerName, mockData.comment);
+        service.saveHistory(0, mockData.date, mockData.time, mockData.assignerName, mockData.comment);
 
         expect(setShpion).toHaveBeenCalled();
     })

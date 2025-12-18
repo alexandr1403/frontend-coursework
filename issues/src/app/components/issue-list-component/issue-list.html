@@ -26,7 +26,8 @@
                             <app-issue-item [issue]="issue" 
                                 (close)="closeIssue($event)" 
                                 (assign)="assignYourself($event)" 
-                                (note)="showToast($event)">
+                                (note)="showToast($event)"
+                                (delete)="deleteIssue($event)">
                             </app-issue-item> 
                         }
 
@@ -38,7 +39,11 @@
                     }
                     @else {
                         @for(item of closed; track $index) {
-                            <app-issue-item [issue]="item"></app-issue-item> 
+                            <app-issue-item [issue]="item"
+                                (note)="showToast($event)"
+                                (delete)="deleteIssue($event)"
+                                (reopen)="reOpen($event)"> 
+                            </app-issue-item> 
                         }
 
                         @if(closed.length === 0) {
@@ -50,7 +55,13 @@
                 }
                 @else {
                     @for(issue of filteredIssues; track $index) {
-                            <app-issue-item [issue]="issue" (close)="closeIssue($event)" (assign)="assignYourself($event)"></app-issue-item> 
+                            <app-issue-item [issue]="issue" 
+                                (close)="closeIssue($event)" 
+                                (assign)="assignYourself($event)" 
+                                (note)="showToast($event)"
+                                (delete)="deleteIssue($event)"
+                                (reopen)="reOpen($event)">
+                            </app-issue-item> 
                         }
 
                         @if(filteredIssues.length === 0) {

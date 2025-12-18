@@ -22,6 +22,14 @@
                 Закрыть задачу 
             </button> 
 
+            <button (click)="deleteIssue()" class="delete-btn"> 
+                Удалить задачу 
+            </button> 
+
+            <button *ngIf="!issue.opened" (click)="reOpenIssue()" class="reopen-btn">
+                Открыть задачу 
+            </button>
+
         </mat-card-content>
 
     </mat-card>

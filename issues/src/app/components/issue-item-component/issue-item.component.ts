@@ -32,6 +32,8 @@ export class IssueItem {
     @Output() close = new EventEmitter<number>();
     @Output() assign = new EventEmitter<number>();
     @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
+    @Output() delete = new EventEmitter<number>();
+    @Output() reopen = new EventEmitter<number>();
 
     constructor(private dialog: MatDialog) { } 
 
@@ -46,16 +48,22 @@ export class IssueItem {
     }
 
     closeIssue(): void {
-        this.issue.opened = false;
+        // this.issue.opened = false;
         this.close.emit(this.issue.id);
-        this.note.emit({
-            message: "Задача закрыта. ",
-            state: NotifyStates.SUCCESS,
-        });
     }
 
     assignYourself(): void {
         this.assign.emit(this.issue.id);
         console.log("Информация о вашем действии успешно передана в компонент задач. ");
+    }
+
+    deleteIssue(): void {
+        this.delete.emit(this.issue.id);
+        console.log("Удаление задачи... ");
+    }
+
+    reOpenIssue(): void {
+        // this.issue.opened = true;
+        this.reopen.emit(this.issue.id);
     }
 }
