@@ -4,9 +4,66 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    border: 1px solid #922525;
+    // border: 1px solid #922525;
+    border: none;
     border-radius: 4px;
     margin-bottom: 8px;
     background: white;
     margin-left: 10px;
+    width: 250px;
+}
+
+.card-content {
+    align-self: center;
+    width: 250px;
+}
+
+.header {
+    text-align: left;
+    text-shadow: #922525;
+    font-weight: 900;
+    font-size: x-large;
+    color: #922525;
+    margin-bottom: 20px;
+}
+
+.selecting {
+    display: flex; 
+    align-items: baseline;
+    margin-top: 0px;
+}
+
+.select-content {
+    margin-left: 10px; 
+    margin-bottom: 10px;
+}
+
+.assign-btn {
+    padding: 8px 10px;
+    margin-right: 50px;
+    background: #1f883d;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.close-btn {
+    padding: 8px 10px;
+    margin-right: 50px;
+    background: #1f4088;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.show-btn {
+    padding: 8px 10px;
+    margin-right: 50px;
+    background: #586533;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
 }

@@ -1,8 +1,36 @@
+.main-main {
+    background: rgb(214, 223, 255);
+    // background: rgb(255, 197, 197);
+}
+
 .issue-list {
-    max-width: 150px; // двигаем чтобы текст был по центру страницы 
+    max-width: 620px; // двигаем чтобы текст был по центру страницы 
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
+    // background: rgb(255, 45, 45);
+    // display: inline;
+}
+
+.issues {
+    float: left; 
+    display: block; 
+    width: 300px; 
+    border: none; 
+    margin: 2px; 
+    padding: 4px; 
+}
+
+.filters {
+    margin-left: 100px;
+    // margin-top: auto;
+    // max-width: 500px;
+    float: left; 
+    display: block; 
+    width: 300px; 
+    border: none; 
+    margin: 2px; 
+    padding: 4px; 
 }
 
 .empty-res {
@@ -13,5 +41,71 @@
 }
 
 .super-header {
+    text-align: center;
     color: rgb(255, 0, 0);
+}
+
+.main-content {
+    width: 600px;
+    border-color: green;
+    border: 10px solid #408e00;
+    border-radius: 5px;
+    display: flex;
+    // height: 30px;
+    // align-content: center;
+    background: rgb(233, 233, 233);
+}
+
+.filter-header {
+    margin-top: 20px; 
+    align-items: center; 
+    text-align: center;
+}
+
+.issue-btns {
+    display: flex;
+}
+
+.issue-btn {
+    text-align: center;
+    display: flex;
+    // padding: 5px 30px;
+    white-space: nowrap;
+    border: 1px solid #1a290e;
+    background: rgb(250, 250, 250);
+}
+
+.cancel-filters {
+    margin-left: 16px; 
+    margin-top: 10px;
+    padding: 2px 4px;
+}
+
+.select-form {
+    cursor: pointer;
+    width: 112px;
+}
+
+.select-tag-form {
+    cursor: pointer;
+    width: 112px;
+    margin-left: 85px;
+}
+
+.select-priority-form {
+    cursor: pointer;
+    width: 112px;
+    margin-left: 26px;
+}
+
+.select-creator-form {
+    cursor: pointer;
+    width: 112px;
+    margin-left: 26px;
+}
+
+.select-assigner-form {
+    cursor: pointer;
+    width: 112px;
+    margin-left: 5px;
 }

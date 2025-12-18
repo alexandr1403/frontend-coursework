@@ -14,8 +14,9 @@ import { NotifyStates } from "../../interfaces/notify.interface";
 })
 
 /**
- * Код ошибки 5 - неверный пароль,
- * -2 - не введённый пароль. 
+ * Коды ошибок:
+ * @param 5 - неверный пароль,
+ * @param -2 - не введённый пароль. 
  */
 export class User {
     /**
@@ -129,13 +130,5 @@ export class User {
 
     cancel(): void {
         this.isStartLogging = false;
-    }
-
-    /**
-     * Очистка бардака в localstorage
-     */
-    cleaner(): void {
-        this.service.cleaner();
-        console.log("Хранилище очищено. ");
     }
 }

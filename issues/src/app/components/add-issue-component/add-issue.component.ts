@@ -39,9 +39,16 @@ export class AddIssue {
     }
 
     addIssue(): void {
+        console.log("Я начал работу!");
         try {
-            if (!this.title.trim())
+            if (!this.title.trim()) {
+                this.isVisibleAdding = false;
+                this.note.emit({
+                    message: "Назовите задачу. ",
+                    state: NotifyStates.INFO,
+                })
                 return;
+            }
 
             if (!this.service.currentUser.name.trim()) {
                 console.log("Войдие в систему. Нельзя создавать задачу неавторизованным. ");
@@ -77,6 +84,7 @@ export class AddIssue {
             this.type = IssueType.BUG;
             this.priority = IssuePriority.MEDIUM;
             this.assigner = { id: 0, name: '', password: '' };
+            console.log("Я завершил работу!");
         }
     }
 

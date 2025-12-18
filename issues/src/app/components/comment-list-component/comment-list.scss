@@ -6,6 +6,11 @@
 
 .dialog {
     background-color: rgb(215, 212, 226);
+    // min-width: 400px;
+}
+
+.mat-dialog-content {
+    min-width: 400px;
 }
 
 .title {
@@ -20,4 +25,29 @@
     // color: black;
     // display: inline-block;
     // white-space: nowrap;
+}
+
+.send-btn {
+    padding: 8px 10px;
+    // margin-right: 10px;
+    margin-left: 10px;
+    background: #1f883d;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 190px;
+}
+
+.close-dialog {
+    margin-left: auto;
+    // margin-left: 100px;
+    border-radius: 3px;
+    padding: 4px 6px;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+.comment {
+    width: 160px;
 }

@@ -12,11 +12,13 @@ import { Observable, of, Subscription } from "rxjs";
 import { NotificationComponent } from "../notification-component/notification.component";
 import { NotificationService } from "../../services/notify-service/notification.service";
 import { NotifyInterface, NotifyStates } from "../../interfaces/notify.interface";
+import { MatList, MatListItem } from "@angular/material/list";
+import { MatButton } from "@angular/material/button";
 
 @Component({
     selector: 'app-issue-list',
     standalone: true,
-    imports: [AddIssue, CommonModule, IssueItem, User, FormsModule, NotificationComponent],
+    imports: [MatButton, AddIssue, CommonModule, IssueItem, User, FormsModule, NotificationComponent, MatList, MatListItem],
     templateUrl: './issue-list.html',
     styleUrls: ['./issue-list.scss']
 })
@@ -53,6 +55,14 @@ export class IssueList implements OnInit, OnDestroy {
         this.filterAssigner = null;
         
         this.isFiltered = false;
+        console.log("Фильтры сброшены.");
+    }
+
+    infoFilters(): void {
+        this.showToast({
+            message: "Фильтры сброшены.",
+            state: NotifyStates.INFO,
+        })
     }
 
     detectChanges(): Observable<any> {
@@ -147,10 +157,6 @@ export class IssueList implements OnInit, OnDestroy {
         );
     }
 
-    cancelFilters(): void {
-        this.isFiltered = false;
-    }
-
     addIssue(newIssue: { creator: UserInterface, title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
         const adding: Omit<IssueInterface, 'id'> = {
             ...newIssue,
@@ -160,6 +166,7 @@ export class IssueList implements OnInit, OnDestroy {
         console.log("Креэйтор: ", adding.creator.name);
         this.service.addIssue(adding);
         this.updateIssues();
+        this.clearFilters();
 
         console.log(this.issues);
     }
@@ -176,7 +183,7 @@ export class IssueList implements OnInit, OnDestroy {
     assignYourself(id: number): void {
         console.log("текущий юзер: ", this.userService.currentUser.name, this.userService.currentUser.id);
         let is = this.service.assign(id, this.userService.currentUser);
-        this.updateIssues();
+        this.applyFilters();
         if (is) {
             this.showToast({
                 message: "Задача взята. ",
@@ -220,5 +227,17 @@ export class IssueList implements OnInit, OnDestroy {
         this.notifyService.show(note);
         // Скрыть через 2 секунды
         setTimeout(() => this.notifyService.hide(), 2000);
+    }
+
+    /**
+     * Очистка бардака в localstorage
+     */
+    cleaner(): void {
+        this.userService.cleaner();
+        console.log("Хранилище очищено. ");
+
+        this.issues = [];
+        this.closed = [];
+        this.filteredIssues = [];
     }
 }

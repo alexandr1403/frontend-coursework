@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { UserInterface } from '../../interfaces/user.interface';
 import { CommentService } from './comment.service';
 
 interface TestValue {
@@ -16,7 +15,7 @@ describe('UserService', () => {
         service = TestBed.inject(CommentService); 
     })
     
-    it('should be created (UserService)', () => {
+    it('should be created (CommentService)', () => {
         expect(service).toBeTruthy();
     })
 
