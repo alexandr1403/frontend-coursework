@@ -5,9 +5,22 @@
 .log-btn {
     margin-top: 30px;
     margin-left: 60px;
+    padding: 8px 10px;
+    background: #1f883d;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
 }
 
 .reg-btn {
-    margin-left: 20px;
+    margin-left: 15px;
     margin-top: 30px;
+    padding: 8px 10px;
+    // margin-right: 50px;
+    background: #1949a2;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
 }

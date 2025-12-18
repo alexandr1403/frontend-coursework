@@ -1,24 +1,24 @@
 <div class="item-form">
     <mat-card class="card-content">
-        <mat-card-header class="header">{{issue.title}}</mat-card-header>
+        <mat-card-header class="header"> {{ issue.title }} </mat-card-header> 
         <mat-card-content>
             <!-- <h2>{{issue.title}}</h2> -->
-            <div style="display: flex; align-items: baseline;">
-                <h3 >Тип задачи: </h3><h2 style="margin-left: 10px; margin-bottom: 10px;"> {{issue.type}} </h2>
+            <div class="selecting">
+                <h3 >Тип задачи: </h3><h2 class="select-content"> {{ issue.type }} </h2>
             </div>
-            <div style="display: flex; align-items: baseline;">
-                <h3>Приоритет: </h3><h2 style="margin-left: 10px; margin-bottom: 10px;">{{issue.priority}} </h2> 
+            <div class="selecting">
+                <h3>Приоритет: </h3><h2 class="select-content"> {{ issue.priority }} </h2> 
             </div>
 
-            <button *ngIf="issue.opened" (click)="assignYourself()" class="saved-btn"> 
+            <button *ngIf="issue.opened" (click)="assignYourself()" class="assign-btn"> 
                 Взять задачу 
             </button> 
 
-            <button (click)="openIssueDialog()" class="del-saved-btn"> 
+            <button (click)="openIssueDialog()" class="show-btn"> 
                 Просмотр 
             </button>
 
-            <button *ngIf="issue.opened" (click)="closeIssue()" class="saved-btn"> 
+            <button *ngIf="issue.opened" (click)="closeIssue()" class="close-btn"> 
                 Закрыть задачу 
             </button> 
 

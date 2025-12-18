@@ -18,11 +18,11 @@
     <mat-dialog-actions>
 
         <input class="comment" [(ngModel)]="comment" type="text" placeholder="Оставьте комментарий...">
-        <button (click)="commentIssue()">
+        <button (click)="commentIssue()" class="send-btn">
             Отправить 
         </button>
 
-        <button (click)="closeDialog()">
+        <button (click)="closeDialog()" class="close-dialog">
             Закрыть 
         </button>
 

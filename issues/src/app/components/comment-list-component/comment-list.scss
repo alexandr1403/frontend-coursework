@@ -21,3 +21,25 @@
     // display: inline-block;
     // white-space: nowrap;
 }
+
+.send-btn {
+    padding: 8px 10px;
+    // margin-right: 10px;
+    margin-left: 10px;
+    background: #1f883d;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.close-dialog {
+    margin-left: auto;
+    border-radius: 3px;
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.comment {
+    width: 70px;
+}

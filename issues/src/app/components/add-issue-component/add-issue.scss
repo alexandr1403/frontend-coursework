@@ -19,3 +19,33 @@
     margin-bottom: 20px;
     margin-left: 30px;
 }
+
+.add-btn{
+    padding: 8px 10px;
+    margin-right: 50px;
+    background: #1f883d;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.save-btn {
+    padding: 8px 10px;
+    margin-right: 50px;
+    background: #1f7f88;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    padding: 8px 10px;
+    margin-right: 50px;
+    background: #76860c;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+}
