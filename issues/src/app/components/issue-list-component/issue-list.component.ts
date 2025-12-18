@@ -242,8 +242,22 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     deleteIssue(id: number): void {
-        this.service.delete(id);
-        this.updateIssues();
-        this.clearFilters();
+        let is = this.service.delete(id, this.userService.currentUser.name);
+        console.log(is);
+
+        if (is) {
+            this.showToast({
+                message: "Задача удалена",
+                state: NotifyStates.INFO,
+            });
+            this.updateIssues();
+            this.clearFilters();
+        }
+        else {
+            this.showToast({
+                message: "Удалять задачу может только её исполнитель.",
+                state: NotifyStates.ERROR,
+            });
+        }
     }
 }

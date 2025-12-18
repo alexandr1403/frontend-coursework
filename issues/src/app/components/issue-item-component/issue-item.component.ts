@@ -63,9 +63,5 @@ export class IssueItem {
     deleteIssue(): void {
         this.delete.emit(this.issue.id);
         console.log("Удаление задачи... ");
-        this.note.emit({
-            message: "Задача удалена",
-            state: NotifyStates.ERROR,
-        })
     }
 }

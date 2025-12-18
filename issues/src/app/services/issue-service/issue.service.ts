@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { IssueInterface } from "../../interfaces/issue.interface";
 import { UserInterface } from "../../interfaces/user.interface";
+import { DeclareFunctionStmt } from "@angular/compiler";
 
 @Injectable({
     providedIn: 'root',
@@ -70,13 +71,41 @@ export class IssueService {
         }
     }
 
-    delete(id: number): void {
+    delete(id: number, currentUser: string): boolean {
         let issues = this.getIssues();
         let closed = this.getClosed();
+        const delIssue = issues.find(item => item.id === id);
+        const delClosed = closed.find(item => item.id === id);
 
-        issues = issues.filter(item => item.id !== id);
-        closed = closed.filter(item => item.id !== id);
-        this.saveIssues(issues);
-        this.setClosed(closed);
+        let res = false;
+        try {
+            if (delIssue || delClosed) {
+                if (delIssue) {
+                    if (currentUser.localeCompare(delIssue.assigner.name) === 0) {
+                        issues = issues.filter(item => item.id !== id);
+                        res = true;
+                    }
+                }
+                if (delClosed) {
+                    if (currentUser.localeCompare(delClosed.assigner.name) === 0) {
+                        closed = closed.filter(item => item.id !== id);
+                        res = true;
+                    }
+                }
+                return res;
+            }
+            else {
+                console.log("Удалять задачу может только её исполнитель.");
+                return false;
+            }
+        } 
+        finally {
+            this.saveIssues(issues);
+            this.setClosed(closed);
+        }
+        // issues = issues.filter(item => item.id !== id);
+        // closed = closed.filter(item => item.id !== id);
+        // this.saveIssues(issues);
+        // this.setClosed(closed);
     }
 }
