@@ -7,19 +7,21 @@
         Зарегистрироваться 
     </button>
 
-    <input *ngIf="isStartLogging" [(ngModel)]="user.name" type="text" placeholder="Ваше имя " class="">
-    <input *ngIf="isStartLogging" [(ngModel)]="user.password" type="text" placeholder="Введите пароль" class="">
+    <input *ngIf="isStartLogging" [(ngModel)]="user.name" type="text" placeholder="Ваше имя " class="ceil-input-form">
+    <input *ngIf="isStartLogging" [(ngModel)]="user.password" type="text" placeholder="Введите пароль" class="floor-input-form">
 
-    <button *ngIf="isStartLogging && isRegister" (click)="register()" class=""> 
-        Отправить 
-    </button>
+    <div class="send-btns">
+        <button *ngIf="isStartLogging && isRegister" (click)="register()" class="send"> 
+            Отправить 
+        </button>
 
-    <button *ngIf="isStartLogging && !isRegister" (click)="logIn()" class=""> 
-        Отправить 
-    </button>
+        <button *ngIf="isStartLogging && !isRegister" (click)="logIn()" class="send"> 
+            Отправить 
+        </button>
 
-    <button *ngIf="isStartLogging" (click)="cancel()" class=""> 
-        Отменить 
-    </button>
+        <button *ngIf="isStartLogging" (click)="cancel()" class="not-send"> 
+            Отменить 
+        </button>
+    </div>
 
 </div>

@@ -1,6 +1,6 @@
 <div class="dialog">
     <h2 mat-dialog-title class="title"> {{ data.issue.title }} </h2>
-    <mat-dialog-content>
+    <mat-dialog-content class="content">
         <h4 class="subfield">Создатель: </h4> <h4 style="font-weight: 500;">{{ data.issue.creator.name }}</h4> 
         <h4 class="subfield">Описание: </h4> <h4 style="font-weight: 500;">{{ data.issue.content }}</h4>
         <h4 class="subfield">Тип: </h4> <h4 style="font-weight: 500;">{{ data.issue.type }}</h4>
@@ -15,7 +15,7 @@
         </div> 
 
     </mat-dialog-content>
-    <mat-dialog-actions>
+    <mat-dialog-actions class="content"> 
 
         <input class="comment" [(ngModel)]="comment" type="text" placeholder="Оставьте комментарий...">
         <button (click)="commentIssue()" class="send-btn">

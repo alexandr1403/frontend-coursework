@@ -6,6 +6,11 @@
 
 .dialog {
     background-color: rgb(215, 212, 226);
+    // min-width: 400px;
+}
+
+.mat-dialog-content {
+    min-width: 400px;
 }
 
 .title {
