@@ -7,8 +7,8 @@ import { WhatUserDone } from "../../interfaces/activity.interface";
 
 export class CommentService {
 
-    setValue(date: string, assignerName: string, comment: string): string {
-        const value = "В " + date + " пользователь " + assignerName + 
+    setValue(date: string, time: string, assignerName: string, comment: string): string {
+        const value = date + " в " + time +  " пользователь " + assignerName + 
         " оставил комментарий: " + "\"" + comment + "\"";
 
         if (comment !== '' && assignerName !== '')
@@ -22,9 +22,9 @@ export class CommentService {
         return history? JSON.parse(history): [];
     }
 
-    saveHistory(key: number, date: string, assignerName: string, comment: string): void {
+    saveHistory(key: number, date: string, time: string, assignerName: string, comment: string): void {
         const history = this.getHistory(key);
-        const value = this.setValue(date, assignerName, comment);
+        const value = this.setValue(date, time, assignerName, comment);
         if (value != '')
             history.push(value);
         localStorage.setItem(key.toString(), JSON.stringify(history));
@@ -37,7 +37,7 @@ export class CommentService {
             activity = WhatUserDone.REOPEN
         else 
             activity = (whatDo === WhatUserDone.ASSIGN)? WhatUserDone.ASSIGN : WhatUserDone.CLOSE; 
-        
+
         const value = "Пользователь " + userName + " " + activity;
 
         if (userName !== '') {

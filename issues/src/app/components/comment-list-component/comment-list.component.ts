@@ -33,10 +33,14 @@ export class CommentList implements OnInit {
     }
 
     commentIssue(): void {
-        const time = new Date().toISOString();
+        // const time = new Date().toISOString();
+        const date = new Date();
+        const day = date.toLocaleDateString();
+        const time = date.toLocaleTimeString();
+
         if (this.comment !== '') {
             console.log("Текущий пользователь", this.userService.currentUser.name);
-            this.service.saveHistory(this.data.issue.id, time, this.userService.currentUser.name, this.comment); 
+            this.service.saveHistory(this.data.issue.id, day, time, this.userService.currentUser.name, this.comment); 
             console.log("Комментарий оставлен: ", this.comment);
             this.updateHistory();
         }
