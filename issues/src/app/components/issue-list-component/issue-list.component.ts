@@ -14,6 +14,8 @@ import { NotificationService } from "../../services/notify-service/notification.
 import { NotifyInterface, NotifyStates } from "../../interfaces/notify.interface";
 import { MatList, MatListItem } from "@angular/material/list";
 import { MatButton } from "@angular/material/button";
+import { CommentService } from "../../services/comment-service/comment.service";
+import { WhatUserDone } from "../../interfaces/activity.interface";
 
 @Component({
     selector: 'app-issue-list',
@@ -27,7 +29,8 @@ export class IssueList implements OnInit, OnDestroy {
 
     constructor(private service: IssueService, 
         private userService: UserService, 
-        private notifyService: NotificationService) { };
+        private notifyService: NotificationService,
+        private commentService: CommentService) { };
 
     issues: IssueInterface[] = [];
     closed: IssueInterface[] = [];
@@ -177,6 +180,7 @@ export class IssueList implements OnInit, OnDestroy {
 
     closeIssue(id: number): void {
         this.service.closeIssue(id);
+        this.commentService.addEvent(id, WhatUserDone.CLOSE, this.userService.currentUser.name);
         this.updateIssues();
     }
 
@@ -189,6 +193,7 @@ export class IssueList implements OnInit, OnDestroy {
                 message: "Задача взята. ",
                 state: NotifyStates.SUCCESS,
             });
+            this.commentService.addEvent(id, WhatUserDone.ASSIGN, this.userService.currentUser.name);
         }
         else {
             this.showToast({

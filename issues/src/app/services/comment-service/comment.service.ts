@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { WhatUserDone } from "../../interfaces/activity.interface";
 
 @Injectable({
     providedIn: 'root',
@@ -7,7 +8,9 @@ import { Injectable } from "@angular/core";
 export class CommentService {
 
     setValue(date: string, assignerName: string, comment: string): string {
-        const value = "В " + date + " пользователь " + assignerName + " оставил комментарий: " + "\"" + comment + "\"";
+        const value = "В " + date + " пользователь " + assignerName + 
+        " оставил комментарий: " + "\"" + comment + "\"";
+
         if (comment !== '' && assignerName !== '')
             return value;
 
@@ -24,6 +27,26 @@ export class CommentService {
         const value = this.setValue(date, assignerName, comment);
         if (value != '')
             history.push(value);
+        localStorage.setItem(key.toString(), JSON.stringify(history));
+    }
+
+    addEvent(key: number, whatDo: WhatUserDone, userName: string): void {
+        const history = this.getHistory(key);
+        let value = '';
+        switch(whatDo) {
+            case WhatUserDone.ASSIGN: {
+                value = "Пользователь " + userName + " " + WhatUserDone.ASSIGN;
+                break;
+            }
+            case WhatUserDone.CLOSE: {
+                value = "Пользователь " + userName + " " + WhatUserDone.CLOSE;
+                break;
+            }
+        }
+
+        if (userName !== '') {
+            history.push(value);
+        }
         localStorage.setItem(key.toString(), JSON.stringify(history));
     }
 }
