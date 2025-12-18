@@ -46,6 +46,8 @@
     border: 1px solid rgb(14, 14, 14);
     border-radius: 3px;
     cursor: pointer;
+    min-width: 119px;
+    margin-left: 99px;
 }
 
 .close-btn {
@@ -56,9 +58,12 @@
     border: 1px solid rgb(14, 14, 14);
     border-radius: 3px;
     cursor: pointer;
+    margin-left: 99px;
+    min-width: 119px;
+    margin-top: 10px;
 }
 
-.show-btn {
+.show-btn-close {
     padding: 8px 10px;
     margin-right: 50px;
     background: #586533;
@@ -66,6 +71,21 @@
     border: 1px solid rgb(14, 14, 14);
     border-radius: 3px;
     cursor: pointer;
+    min-width: 119px;
+    margin-left: 0px;
+}
+
+.show-btn-open {
+    padding: 8px 10px;
+    margin-right: 50px;
+    background: #586533;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+    min-width: 119px;
+    margin-left: 0px;
+    margin-top: 10px;
 }
 
 .delete-btn {
@@ -76,6 +96,7 @@
     border: 1px solid rgb(14, 14, 14);
     border-radius: 3px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .edit-btn {
@@ -86,4 +107,26 @@
     border: 1px solid rgb(14, 14, 14);
     border-radius: 3px;
     cursor: pointer;
+    min-width: 119px;
+    margin-left: 99px;
+    margin-top: 10px;
+}
+
+.reopen-btn {
+    padding: 8px 6px;
+    margin-right: 50px;
+    background: #249a57;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 98px;
+    min-width: 119px;
+    white-space: nowrap;
+    margin-top: 10px;
+}
+
+.ladder-btns {
+    background: rgb(250, 233, 233); 
+    border-radius: 5px;
 }
