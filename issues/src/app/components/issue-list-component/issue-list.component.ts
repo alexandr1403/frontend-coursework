@@ -160,7 +160,14 @@ export class IssueList implements OnInit, OnDestroy {
         );
     }
 
-    addIssue(newIssue: { creator: UserInterface, title: string, content?: string, type: IssueType, priority: IssuePriority, assigner: UserInterface }): void {
+    addIssue(newIssue: { 
+        creator: UserInterface, 
+        title: string, 
+        content?: string, 
+        type: IssueType, 
+        priority: IssuePriority, 
+        assigner: UserInterface }): void {
+
         const adding: Omit<IssueInterface, 'id'> = {
             ...newIssue,
             opened: true
@@ -324,5 +331,6 @@ export class IssueList implements OnInit, OnDestroy {
             return;
         }
         this.updateIssues();
+        this.applyFilters();
     }
 }
