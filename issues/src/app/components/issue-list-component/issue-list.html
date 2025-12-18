@@ -65,7 +65,7 @@
                 <h3 class="filter-header">Фильтры: </h3>
                 <mat-list>
                     <mat-list-item>
-                        Тег: <select [(ngModel)]="filterTag" name="type" (click)="doFilter()" class="select-form"> 
+                        Тег: <select [(ngModel)]="filterTag" name="tag" (click)="doFilter()" class="select-form"> 
                             @for (type of tags; track type) {
                                 <option [value]="type">{{type}}</option>
                             }
@@ -73,7 +73,7 @@
                     </mat-list-item>
 
                     <mat-list-item>
-                        Приоритет: <select [(ngModel)]="filterPriority" (click)="doFilter()" name="type" class="select-form"> 
+                        Приоритет: <select [(ngModel)]="filterPriority" (click)="doFilter()" name="priority" class="select-form"> 
                             @for (type of priors; track type) {
                                 <option [value]="type">{{type}}</option>
                             }
@@ -81,7 +81,7 @@
                     </mat-list-item>
 
                     <mat-list-item>
-                        Создатель: <select [(ngModel)]="filterCreator" name="type" (click)="doFilter()" class="select-form"> 
+                        Создатель: <select [(ngModel)]="filterCreator" name="creator" (click)="doFilter()" class="select-form"> 
                             @for (type of users; track type) {
                                 <option [value]="type">{{type}}</option>
                             }
@@ -89,7 +89,7 @@
                     </mat-list-item>
 
                     <mat-list-item>
-                    Исполнитель: <select [(ngModel)]="filterAssigner" name="type" (click)="doFilter()" class="select-form"> 
+                    Исполнитель: <select [(ngModel)]="filterAssigner" name="assigner" (click)="doFilter()" class="select-form"> 
                         @for (type of users; track type) {
                             <option [value]="type">{{type}}</option>
                         }

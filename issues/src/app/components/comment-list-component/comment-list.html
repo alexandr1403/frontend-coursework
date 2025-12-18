@@ -17,14 +17,16 @@
     </mat-dialog-content>
     <mat-dialog-actions class="content"> 
 
-        <input class="comment" [(ngModel)]="comment" type="text" placeholder="Оставьте комментарий...">
-        <button (click)="commentIssue()" class="send-btn">
-            Отправить 
-        </button>
+        <div style="display: flex; align-items: baseline;">
+            <input class="comment" [(ngModel)]="comment" type="text" placeholder="Оставьте комментарий...">
+            <button (click)="commentIssue()" class="send-btn">
+                Отправить 
+            </button>
 
-        <button (click)="closeDialog()" class="close-dialog">
-            Закрыть 
-        </button>
+            <button (click)="closeDialog()" class="close-dialog">
+                Закрыть 
+            </button>
+        </div>
 
     </mat-dialog-actions>
 

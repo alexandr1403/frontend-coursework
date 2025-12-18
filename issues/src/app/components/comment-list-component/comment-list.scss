@@ -36,15 +36,18 @@
     border: 1px solid rgb(14, 14, 14);
     border-radius: 3px;
     cursor: pointer;
+    margin-right: 190px;
 }
 
 .close-dialog {
     margin-left: auto;
+    // margin-left: 100px;
     border-radius: 3px;
-    padding: 8px 10px;
+    padding: 4px 6px;
     cursor: pointer;
+    margin-top: auto;
 }
 
 .comment {
-    width: 70px;
+    width: 160px;
 }
