@@ -72,6 +72,9 @@ export class IssueService {
     }
 
     delete(id: number, currentUser: string): boolean {
+        if (currentUser === '')
+            return false;
+        
         let issues = this.getIssues();
         let closed = this.getClosed();
         const delIssue = issues.find(item => item.id === id);

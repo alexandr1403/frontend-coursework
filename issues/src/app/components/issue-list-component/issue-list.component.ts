@@ -200,12 +200,12 @@ export class IssueList implements OnInit, OnDestroy {
 
     showClosed(): void {
         this.isOpened = false;
-        this.isFiltered = false;
+        this.clearFilters();
     }
 
     showOpened(): void {
         this.isOpened = true;
-        this.isFiltered = false;
+        this.clearFilters();
     }
 
     updateIssues(): void {
