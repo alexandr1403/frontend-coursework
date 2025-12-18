@@ -240,4 +240,10 @@ export class IssueList implements OnInit, OnDestroy {
         this.closed = [];
         this.filteredIssues = [];
     }
+
+    deleteIssue(id: number): void {
+        this.service.delete(id);
+        this.updateIssues();
+        this.clearFilters();
+    }
 }

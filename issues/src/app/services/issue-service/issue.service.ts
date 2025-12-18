@@ -69,4 +69,14 @@ export class IssueService {
             return false;
         }
     }
+
+    delete(id: number): void {
+        let issues = this.getIssues();
+        let closed = this.getClosed();
+
+        issues = issues.filter(item => item.id !== id);
+        closed = closed.filter(item => item.id !== id);
+        this.saveIssues(issues);
+        this.setClosed(closed);
+    }
 }
