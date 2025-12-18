@@ -1,9 +1,9 @@
 <div class="user">
-    <button *ngIf="!isStartLogging" (click)="startLog()" class=""> 
+    <button *ngIf="!isStartLogging" (click)="startLog()" class="log-btn"> 
         Войти
     </button>
 
-    <button *ngIf="!isStartLogging" (click)="startReg()" class=""> 
+    <button *ngIf="!isStartLogging" (click)="startReg()" class="reg-btn"> 
         Зарегистрироваться 
     </button>
 
@@ -20,10 +20,6 @@
 
     <button *ngIf="isStartLogging" (click)="cancel()" class=""> 
         Отменить 
-    </button>
-
-    <button (click)="cleaner()" style="margin-left: 30px;"> 
-        Очистка бардака в хранилище 
     </button>
 
 </div>

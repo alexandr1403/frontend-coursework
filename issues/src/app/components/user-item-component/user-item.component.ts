@@ -130,12 +130,4 @@ export class User {
     cancel(): void {
         this.isStartLogging = false;
     }
-
-    /**
-     * Очистка бардака в localstorage
-     */
-    cleaner(): void {
-        this.service.cleaner();
-        console.log("Хранилище очищено. ");
-    }
 }

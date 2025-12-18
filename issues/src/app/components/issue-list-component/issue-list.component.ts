@@ -223,4 +223,16 @@ export class IssueList implements OnInit, OnDestroy {
         // Скрыть через 2 секунды
         setTimeout(() => this.notifyService.hide(), 2000);
     }
+
+    /**
+     * Очистка бардака в localstorage
+     */
+    cleaner(): void {
+        this.userService.cleaner();
+        console.log("Хранилище очищено. ");
+        
+        this.issues = [];
+        this.closed = [];
+        this.filteredIssues = [];
+    }
 }

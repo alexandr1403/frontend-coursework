@@ -45,6 +45,7 @@
     border: 10px solid #408e00;
     border-radius: 5px;
     display: flex;
+    // height: 30px;
 }
 
 .filter-header {
@@ -63,4 +64,9 @@
     // padding: 5px 30px;
     white-space: nowrap;
     border: 1px solid #1a290e;
+}
+
+.cancel-filters {
+    margin-left: 16px; 
+    margin-top: 10px;
 }

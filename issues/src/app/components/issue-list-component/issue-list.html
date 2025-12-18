@@ -96,15 +96,19 @@
                     </select>
                     </mat-list-item>
                 </mat-list>
-                <button style="margin-left: 100px;" (click)="clearFilters()">
+                <button class="cancel-filters" (click)="clearFilters()">
                     Сбросить фильтры 
                 </button>
+
+                <!-- Передаём в event данные для инициализации пользователя, 
+                который работает сейчас в программе.
+                Изменено: общий текущий пользователь хранится в UserService. --> 
+                <app-user (reg)="addUser($event)" (note)="showToast($event)"></app-user> 
         </div>
     </div>
 
-    <!-- Передаём в event данные для инициализации пользователя, 
-     который работает сейчас в программе.
-     Изменено: общий текущий пользователь хранится в UserService. --> 
-    <app-user (reg)="addUser($event)" (note)="showToast($event)"></app-user> 
+    <button (click)="cleaner()" style="margin-left: 30px; margin-top: 20px;"> 
+        Очистка бардака в хранилище 
+    </button>
 
 </div>
