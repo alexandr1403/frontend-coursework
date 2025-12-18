@@ -50,4 +50,21 @@ export class CommentService {
 
         localStorage.setItem(key.toString(), JSON.stringify(history));
     }
+
+    addEditMsg(key: number, userName: string): void {
+        const date = new Date();
+        const day = date.toLocaleDateString();
+        const time = date.toLocaleTimeString();
+
+        const history = this.getHistory(key);
+
+        const value = day + " в " + time + " пользователь " + userName + " отредактировал задачу";
+
+        if (userName.trim() && key > 0) {
+            history.push(value);
+        } 
+
+        localStorage.setItem(key.toString(), JSON.stringify(history));
+
+    }
 }
