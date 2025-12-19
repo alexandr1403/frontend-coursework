@@ -36,11 +36,12 @@ export class IssueItem {
     @Output() note = new EventEmitter<{ message: string, state: NotifyStates }>();
     @Output() delete = new EventEmitter<number>();
     @Output() reopen = new EventEmitter<number>();
-    @Output() update = new EventEmitter<{ id: number, updates: Partial<IssueInterface> }>();
+    @Output() update = new EventEmitter<{ isSame: boolean, id: number, updates: Partial<IssueInterface> }>();
 
     constructor(private dialog: MatDialog, private service: UserService) { };
 
     isEdditing: boolean = false;
+    isSame: boolean = false; // совпадет ли название задачи после редактирования с названием до? 
 
     openIssueDialog(): void {
         this.dialog.open(CommentList, { data: { issue: this.issue } });
@@ -84,7 +85,10 @@ export class IssueItem {
         this.isEdditing = true;
         const dialogRef = this.dialog.open(EditIssue, { data: { issue: this.issue } });
 
-        dialogRef.afterClosed().subscribe((result) => this.update.emit({
+        dialogRef.afterClosed().subscribe((result) => {
+            this.isSame = (result.title.localeCompare(this.issue.title) === 0)? true : false;
+            this.update.emit({
+                    isSame: this.isSame,
                     id: result.id,
                     updates: {
                         title: result.title,
@@ -92,7 +96,8 @@ export class IssueItem {
                         type: result.type,
                         priority: result.priority,
                     }
-                })
-            );
+                });
+            }
+        );
     }
 }

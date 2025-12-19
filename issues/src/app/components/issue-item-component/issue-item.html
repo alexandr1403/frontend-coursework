@@ -2,7 +2,6 @@
     <mat-card class="card-content">
         <mat-card-header class="header"> {{ issue.title }} </mat-card-header> 
         <mat-card-content>
-            <!-- <h2>{{issue.title}}</h2> -->
             <div class="selecting">
                 <h3 >Тип задачи: </h3><h2 class="select-content"> {{ issue.type }} </h2>
             </div>
@@ -10,29 +9,36 @@
                 <h3>Приоритет: </h3><h2 class="select-content"> {{ issue.priority }} </h2> 
             </div>
 
-            <button *ngIf="issue.opened" (click)="assignYourself()" class="assign-btn"> 
-                Взять задачу 
-            </button> 
+            <div class="ladder-btns">
+                <button *ngIf="issue.opened" (click)="assignYourself()" class="assign-btn"> 
+                    Взять задачу 
+                </button> 
 
-            <button (click)="openIssueDialog()" class="show-btn"> 
-                Просмотр 
-            </button>
+                <button *ngIf="issue.opened" (click)="openIssueDialog()" class="show-btn-open"> 
+                    Просмотр 
+                </button>
 
-            <button *ngIf="issue.opened" (click)="closeIssue()" class="close-btn"> 
-                Закрыть задачу 
-            </button> 
+                <button *ngIf="!issue.opened" (click)="openIssueDialog()" class="show-btn-close"> 
+                    Просмотр 
+                </button>
 
-            <button (click)="deleteIssue()" class="delete-btn"> 
-                Удалить задачу 
-            </button> 
+                <button *ngIf="issue.opened" (click)="closeIssue()" class="close-btn"> 
+                    Закрыть задачу 
+                </button> 
 
-            <button *ngIf="!issue.opened" (click)="reOpenIssue()" class="reopen-btn">
-                Открыть задачу 
-            </button>
+                <button *ngIf="!issue.opened" (click)="reOpenIssue()" class="reopen-btn">
+                    Открыть задачу 
+                </button>
 
-            <button *ngIf="issue.opened" (click)="startEdit()" class="edit-btn">
-                Редактировать 
-            </button>
+                <button (click)="deleteIssue()" class="delete-btn"> 
+                    Удалить задачу 
+                </button> 
+
+                <button *ngIf="issue.opened" (click)="startEdit()" class="edit-btn">
+                    Редактировать 
+                </button>
+
+            </div>
 
         </mat-card-content>
 

@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Inject, OnInit, Output } from "@angular/core";
 import { IssueInterface, IssuePriority, IssueType } from "../../interfaces/issue.interface";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions } from "@angular/material/dialog";
 
 @Component({
     selector: 'app-edit-issue',
@@ -45,12 +45,12 @@ export class EditIssue implements OnInit {
         if (this.editData.title.trim())
         {
             this.dialogRef.close({
-            id: this.data.issue.id,
-            title: this.editData.title.trim(),
-            content: this.editData.content,
-            type: this.editData.type,
-            priority: this.editData.priority,
-        });
+                id: this.data.issue.id,
+                title: this.editData.title.trim(),
+                content: this.editData.content,
+                type: this.editData.type,
+                priority: this.editData.priority,
+            });
         }
         else {
             this.dialogRef.close({
@@ -67,7 +67,7 @@ export class EditIssue implements OnInit {
     cancelEdit(): void {
         this.isEdditing = false;
         this.dialogRef.close({
-            id: 0,
+            id: -1,
             title: '',
             content: '',
             type: this.editData.type,

@@ -130,18 +130,20 @@ export class IssueService {
         this.setClosed(closed);
     }
 
-    updateIssue(id: number, updates: Partial<IssueInterface>): boolean {
+    updateIssue(isSame: boolean, id: number, updates: Partial<IssueInterface>): boolean {
         const issues = this.getIssues();
         const index = issues.findIndex(item => item.id === id);
         const updateTitle = updates.title;
         let sameIssue = undefined;
-        if (updateTitle)
-            sameIssue = issues.find(item => item.title.trim().localeCompare(updateTitle.trim()) === 0);
+        if (!isSame) {
+            if (updateTitle)
+                sameIssue = issues.find(item => item.title.trim().localeCompare(updateTitle.trim()) === 0);
 
-        console.log("update title", updateTitle);
-        if (sameIssue !== undefined) {
-            console.log("Такая задача уже есть.");
-            return false;
+            console.log("update title", updateTitle);
+            if (sameIssue !== undefined) {
+                console.log("Такая задача уже есть.");
+                return false;
+            }
         }
 
         if (index !== -1)

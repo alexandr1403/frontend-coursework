@@ -33,7 +33,7 @@ export class User {
 
     register(): void {
         this.user.id = Date.now();
-        if (this.user.name.trim() && this.user.password.trim()) {
+        if (this.user.name.trim() && this.user.password.trim() && this.user.password.trim().length >= 4) {
             let is = this.service.registerUser(this.user);
 
             this.service.currentUserInit(this.user);
@@ -54,6 +54,13 @@ export class User {
                     state: NotifyStates.INFO,
                 });
             }
+        }
+        else if (this.user.password.trim() && this.user.password.trim().length < 4) {
+            console.log("Пароль короткий.");
+            this.note.emit({
+                message: "Пароль слишком короткий. ",
+                state: NotifyStates.ERROR,
+            });
         }
         else {
             console.log("Введи пароль, чубатый");

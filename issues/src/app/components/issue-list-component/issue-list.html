@@ -22,13 +22,14 @@
                 @if (!isFiltered) {
                     @if(isOpened) {
                         @for(issue of issues; track $index) {
-                            <!-- Задачу можно закрыть и назначить на себя.  -->
+                            <!-- Задачу можно закрыть и назначить на себя. 
+                             Изменено: и много чего ещё. -->
                             <app-issue-item [issue]="issue" 
                                 (close)="closeIssue($event)" 
                                 (assign)="assignYourself($event)" 
                                 (note)="showToast($event)"
                                 (delete)="deleteIssue($event)"
-                                (update)="updateOneIssue($event.id, $event.updates)">
+                                (update)="updateOneIssue($event.isSame, $event.id, $event.updates)">
                             </app-issue-item> 
                         }
 
@@ -62,7 +63,7 @@
                                 (note)="showToast($event)"
                                 (delete)="deleteIssue($event)"
                                 (reopen)="reOpen($event)"
-                                (update)="updateOneIssue($event.id, $event.updates)">
+                                (update)="updateOneIssue($event.isSame, $event.id, $event.updates)">
                             </app-issue-item> 
                         }
 

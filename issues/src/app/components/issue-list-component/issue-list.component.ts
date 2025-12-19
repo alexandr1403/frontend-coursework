@@ -89,41 +89,11 @@ export class IssueList implements OnInit, OnDestroy {
     }
 
     filterByTag(filter: IssueType): void {
-        switch(filter) {
-            case IssueType.BUG: {
-                this.filteredIssues = this.filteredIssues.filter(item => item.type === IssueType.BUG);
-                break;
-            }
-            case IssueType.FEATURE: {
-                this.filteredIssues = this.filteredIssues.filter(item => item.type === IssueType.FEATURE);
-                break;
-            }
-            case IssueType.DOC: {
-                this.filteredIssues = this.filteredIssues.filter(item => item.type === IssueType.DOC);
-                break;
-            }
-        }
+        this.filteredIssues = this.filteredIssues.filter(item => item.type === filter);
     }
 
     filterByPriority(filter: IssuePriority): void {
-        switch(filter) {
-            case IssuePriority.CRITICAL: {
-                this.filteredIssues = this.filteredIssues.filter(item => item.priority === IssuePriority.CRITICAL);
-                break;
-            }
-            case IssuePriority.HIGH: {
-                this.filteredIssues = this.filteredIssues.filter(item => item.priority === IssuePriority.HIGH);
-                break;
-            }
-            case IssuePriority.LOW: {
-                this.filteredIssues = this.filteredIssues.filter(item => item.priority === IssuePriority.LOW);
-                break;
-            }
-            case IssuePriority.MEDIUM: {
-                this.filteredIssues = this.filteredIssues.filter(item => item.priority === IssuePriority.MEDIUM);
-                break;
-            }
-        }
+        this.filteredIssues = this.filteredIssues.filter(item => item.priority === filter);
     }
 
     applyFilters(): void {
@@ -267,18 +237,6 @@ export class IssueList implements OnInit, OnDestroy {
         setTimeout(() => this.notifyService.hide(), 2000);
     }
 
-    /**
-     * Очистка бардака в localstorage
-     */
-    cleaner(): void {
-        this.userService.cleaner();
-        console.log("Хранилище очищено. ");
-
-        this.issues = [];
-        this.closed = [];
-        this.filteredIssues = [];
-    }
-
     deleteIssue(id: number): void {
         let is = this.service.delete(id, this.userService.currentUser.name);
         console.log(is);
@@ -319,10 +277,19 @@ export class IssueList implements OnInit, OnDestroy {
         }  
     }
 
-    updateOneIssue(id: number, updates: Partial<IssueInterface>): void {
+    updateOneIssue(isSame: boolean, id: number, updates: Partial<IssueInterface>): void {
         console.log("Я был вызван!");
+        if (id === 0) {
+            this.showToast({
+                message: "Нельзя создавать задачу без названия.",
+                state: NotifyStates.ERROR,
+            });
+            return;
+        }
+        if (id === -1) 
+            return;
 
-        let is = this.service.updateIssue(id, updates);
+        let is = this.service.updateIssue(isSame, id, updates);
         if (!is) {
             this.showToast({
                 message: "Такая задача уже есть.",
@@ -332,5 +299,20 @@ export class IssueList implements OnInit, OnDestroy {
         }
         this.updateIssues();
         this.applyFilters();
+        // this.commentService.addEditMsg(id, this.userService.currentUser.name.trim());
+        this.commentService.addEvent(id, WhatUserDone.EDIT, this.userService.currentUser.name.trim())
+    }
+
+    /**
+     * Очистка бардака в localstorage
+     */
+    cleaner(): void {
+        this.userService.cleaner();
+        console.log("Хранилище очищено. ");
+
+        this.issues = [];
+        this.closed = [];
+        this.filteredIssues = [];
+        this.users = [];
     }
 }

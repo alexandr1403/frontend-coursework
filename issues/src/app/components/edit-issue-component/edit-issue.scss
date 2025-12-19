@@ -1,0 +1,81 @@
+.txt-form {
+    margin-right: 10px;
+    display: flex;
+    white-space: nowrap;
+    color: rgb(26, 26, 26);
+}
+
+.main-form {
+    display: flex;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+
+.save-btn {
+    padding: 8px 10px;
+    margin-right: 10px;
+    background: #1f7f88;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    padding: 8px 10px;
+    margin-right: 10px;
+    background: #bb660b;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.select-form {
+    cursor: pointer;
+    max-height: 20px;
+    // margin-left: 20px;
+    width: 100px;
+    height: 20px;
+    margin-right: 20px;
+}
+
+.title {
+    text-align: center;
+}
+
+.add-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px; 
+    // max-width: 800px;
+    max-height: 80px;
+    align-items: baseline;
+    min-width: 600px;
+    margin-left: 10px;
+}
+
+.form-input-content {
+    margin-left: 80px;
+    min-width: 250px;
+    // max-height: 10px;
+}
+
+.form-input-title {
+    margin-left: 80px;
+    min-width: 100px;
+    // max-height: 10px;
+}
+
+.content {
+    background: wheat;
+}
+
+.field {
+    margin-left: 80px;
+}
+
+.dialog {
+    background: rgb(214, 223, 255);
+}
