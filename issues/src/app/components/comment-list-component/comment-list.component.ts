@@ -37,14 +37,14 @@ export class CommentList implements OnInit {
         const day = date.toLocaleDateString();
         const time = date.toLocaleTimeString();
 
-        if (this.comment !== '' && this.comment.length < 155) {
+        if (this.comment !== '' && this.comment.length < 145) {
             console.log("Длина комментария: ", this.comment.length);
             console.log("Текущий пользователь", this.userService.currentUser.name);
             this.service.saveHistory(this.data.issue.id, day, time, this.userService.currentUser.name, this.comment); 
             console.log("Комментарий оставлен: ", this.comment);
             this.updateHistory();
         }
-        else if (this.comment.length > 155) {
+        else if (this.comment.length >= 145) {
             console.log("Комментарий слишком длинный.");
         }
         else
