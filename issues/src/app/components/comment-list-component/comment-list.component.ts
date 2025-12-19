@@ -52,5 +52,4 @@ export class CommentList implements OnInit {
     updateHistory(): void {
         this.history = this.service.getHistory(this.data.issue.id);
     }
-    
 }
