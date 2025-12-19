@@ -36,35 +36,14 @@ export class CommentService {
         const time = date.toLocaleTimeString();
 
         const history = this.getHistory(key);
-        let activity = '';
-        if (whatDo == WhatUserDone.REOPEN) 
-            activity = WhatUserDone.REOPEN
-        else 
-            activity = (whatDo === WhatUserDone.ASSIGN)? WhatUserDone.ASSIGN : WhatUserDone.CLOSE; 
+        let activity: string = whatDo;
 
-        const value = day + " в " + time + " Пользователь " + userName + " " + activity;
+        const value = day + " в " + time + " пользователь " + userName + " " + activity;
 
         if (userName !== '') {
             history.push(value);
         }
 
         localStorage.setItem(key.toString(), JSON.stringify(history));
-    }
-
-    addEditMsg(key: number, userName: string): void {
-        const date = new Date();
-        const day = date.toLocaleDateString();
-        const time = date.toLocaleTimeString();
-
-        const history = this.getHistory(key);
-
-        const value = day + " в " + time + " пользователь " + userName + " отредактировал задачу";
-
-        if (userName.trim() && key > 0) {
-            history.push(value);
-        } 
-
-        localStorage.setItem(key.toString(), JSON.stringify(history));
-
     }
 }

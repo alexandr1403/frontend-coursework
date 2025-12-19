@@ -14,7 +14,9 @@ export interface IssueInterface {
 export enum IssueType {
     BUG = "баг",
     FEATURE = "новая функция",
-    DOC = "документация"
+    DOC = "документация",
+    TEST = "тестирование",
+    ORG = "организация"
 }
 
 export enum IssuePriority {
