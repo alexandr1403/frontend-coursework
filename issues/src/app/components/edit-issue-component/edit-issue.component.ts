@@ -66,12 +66,6 @@ export class EditIssue implements OnInit {
 
     cancelEdit(): void {
         this.isEdditing = false;
-        this.dialogRef.close({
-            id: -1,
-            title: '',
-            content: '',
-            type: this.editData.type,
-            priority: this.editData.priority,
-        });
+        this.dialogRef.close({ id: -1 });
     }
 }

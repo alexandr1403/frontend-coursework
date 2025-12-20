@@ -299,7 +299,6 @@ export class IssueList implements OnInit, OnDestroy {
         }
         this.updateIssues();
         this.applyFilters();
-        // this.commentService.addEditMsg(id, this.userService.currentUser.name.trim());
         this.commentService.addEvent(id, WhatUserDone.EDIT, this.userService.currentUser.name.trim())
     }
 
